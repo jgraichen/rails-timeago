@@ -45,7 +45,7 @@ Use the timeago_tag helper like any other regular tag helper:
 * force
   Force time ago tag ignoring limit option. (default: false)
 
-All other options will be given as options to tag helper.
+All other options will be given as options to the time tag helper.
 
 ## License
 
