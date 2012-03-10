@@ -1,13 +1,15 @@
 # rails-timeago
 
-*rails-timeago* provides a timeago_tag helper to create time tags usable for 
+**rails-timeago** provides a timeago_tag helper to create time tags usable for 
 [jQuery Timeago](https://github.com/rmm5t/jquery-timeago) plugin.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'rails-timeago'
+```ruby
+gem 'rails-timeago'
+```
 
 And then execute:
 
@@ -27,46 +29,44 @@ This will also convert all matching time tags on page load.
 
 Use the timeago_tag helper like any other regular tag helper:
 
-    <%= timeago_tag Time.zone.now, :nojs => true, :limit => 10.days.ago %>
+```erb
+<%= timeago_tag Time.zone.now, :nojs => true, :limit => 10.days.ago %>
+```
 
 
 ### Available options:
 
-**nojs**
-
+**nojs**  
 Add time ago in words as time tag content instead of absolute time. 
 (default: false)
 
-**date_only**
-
+**date_only**  
 Only print date as tag content instead of full time. 
 (default: true)
 
-**format**
-
+**format**  
 A time format for localize method used to format static time. 
 (default: default)
  
-**limit**
-
+**limit**  
 Set a limit for time ago tags. All dates before given limit will not be converted. 
 (default: 4.days.ago) 
 
-**force**
-
+**force**  
 Force time ago tag ignoring limit option. 
 (default: false)
 
-**default**
-
+**default**  
 String that will be returned if time is nil.
 (default: '-')
 
 
-All other options will be given as options to the time tag helper.
+All other options will be given as options to the time tag helper.  
 The above options can be assigned globally as defaults using
 
-    Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
+```ruby
+Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
+```
 
 A global limit should always be given as a block that will be evaluated each time
 the rails timeago_tag helper is called. That avoids the limit becoming smaller the
