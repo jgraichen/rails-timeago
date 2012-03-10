@@ -61,4 +61,24 @@ describe Rails::Timeago::Helper do
   it 'should pass html option to tag helper' do
     @stub.timeago_tag(Time.now, :myattr => 'abc').should =~ /<time.*myattr="abc".*>.*<\/time>/
   end
+
+  it "should allow to set global options" do
+    Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
+    time = 7.days.ago
+
+    @stub.timeago_tag(time).
+      should include(">#{I18n.l time.to_date, :format => :short}<")
+    @stub.timeago_tag(time).
+      should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+  end
+
+  it "should allow to override global options" do
+    Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
+    time = 7.days.ago
+
+    @stub.timeago_tag(time, :format => :long).
+      should include(">#{I18n.l time.to_date, :format => :long}<")
+    @stub.timeago_tag(time, :limit => 4.days.ago).
+      should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+  end
 end
