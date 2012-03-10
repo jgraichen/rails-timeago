@@ -33,31 +33,37 @@ Use the timeago_tag helper like any other regular tag helper:
 ### Available options:
 
 **nojs**
+
 Add time ago in words as time tag content instead of absolute time. 
 (default: false)
 
 **date_only**
+
 Only print date as tag content instead of full time. 
 (default: true)
 
 **format**
+
 A time format for localize method used to format static time. 
 (default: default)
  
 **limit**
+
 Set a limit for time ago tags. All dates before given limit will not be converted. 
 (default: 4.days.ago) 
 
 **force**
+
 Force time ago tag ignoring limit option. 
 (default: false)
 
 **default**
+
 String that will be returned if time is nil.
 (default: '-')
 
-All other options will be given as options to the time tag helper.
 
+All other options will be given as options to the time tag helper.
 The above options can be assigned globally as defaults using
 
     Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
