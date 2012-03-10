@@ -32,33 +32,27 @@ Use the timeago_tag helper like any other regular tag helper:
 
 ### Available options:
 
-* nojs
-
+* **nojs**
   Add time ago in words as time tag content instead of absolute time. 
   (default: false)
 
-* date_only
-
+* **date_only**
   Only print date as tag content instead of full time. 
   (default: true)
 
-* format
-
+* **format**
   A time format for localize method used to format static time. 
   (default: default)
  
-* limit
-
+* **limit**
   Set a limit for time ago tags. All dates before given limit will not be converted. 
   (default: 4.days.ago) 
 
-* force
-
+* **force**
   Force time ago tag ignoring limit option. 
   (default: false)
 
-* default
-
+* **default**
   String that will be returned if time is nil.
   (default: '-')
 
