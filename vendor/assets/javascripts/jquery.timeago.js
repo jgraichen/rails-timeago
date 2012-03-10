@@ -1,18 +1,18 @@
 /**
-* Timeago is a jQuery plugin that makes it easy to support automatically
-* updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
-*
-* @name timeago
-* @version 0.10.0
-* @requires jQuery v1.2.3+
-* @author Ryan McGeary
-* @license MIT License - http://www.opensource.org/licenses/mit-license.php
-*
-* For usage and examples, visit:
-* http://timeago.yarp.com/
-*
-* Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
-*/
+ * Timeago is a jQuery plugin that makes it easy to support automatically
+ * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
+ *
+ * @name timeago
+ * @version 0.11
+ * @requires jQuery v1.2.3+
+ * @author Ryan McGeary
+ * @license MIT License - http://www.opensource.org/licenses/mit-license.php
+ *
+ * For usage and examples, visit:
+ * http://timeago.yarp.com/
+ *
+ * Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+ */
 (function($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
@@ -45,6 +45,7 @@
         months: "%d months",
         year: "about a year",
         years: "%d years",
+        wordSeparator: " ",
         numbers: []
       }
     },
@@ -76,14 +77,14 @@
         minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
         minutes < 90 && substitute($l.hour, 1) ||
         hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 48 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.floor(days)) ||
-        days < 60 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
-        years < 2 && substitute($l.year, 1) ||
-        substitute($l.years, Math.floor(years));
+        hours < 42 && substitute($l.day, 1) ||
+        days < 30 && substitute($l.days, Math.round(days)) ||
+        days < 45 && substitute($l.month, 1) ||
+        days < 365 && substitute($l.months, Math.round(days / 30)) ||
+        years < 1.5 && substitute($l.year, 1) ||
+        substitute($l.years, Math.round(years));
 
-      return $.trim([prefix, words, suffix].join(" "));
+      return $.trim([prefix, words, suffix].join($l.wordSeparator));
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
