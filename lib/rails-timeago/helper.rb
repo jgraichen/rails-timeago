@@ -37,10 +37,9 @@ module Rails
         time_options = Rails::Timeago.default_options
 
         time_options = time_options.merge html_options.extract!(*time_options.keys.select{|k| html_options.include?(k)})
-        html_options.merge! :title => I18n.l(time, :format => time_options[:format])
-
         return time_options[:default] if time.nil?
-
+        
+        html_options.merge! :title => I18n.l(time, :format => time_options[:format])
         time_options[:limit] = time_options[:limit].call if time_options[:limit].is_a?(Proc)
 
         if time_options[:force] or time_options[:limit].nil? or time_options[:limit] < time

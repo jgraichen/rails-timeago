@@ -81,4 +81,8 @@ describe Rails::Timeago::Helper do
     @stub.timeago_tag(time, :limit => 4.days.ago).
       should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
   end
+
+  it "should return default string if time is nil" do
+    @stub.timeago_tag(nil).should == '-'
+  end
 end
