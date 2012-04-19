@@ -74,7 +74,7 @@ longer the application runs.
 
 ## I18n
 
-**Note:** Available since version *1.1.2.rc1*. I18n features are still untested.
+**Note:** Available since version *1.2.0.rc1*. I18n features are still untested.
 
 **rails-timeago** provides additional localization features and includes locale
 files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
