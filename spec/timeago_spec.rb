@@ -1,7 +1,5 @@
 
 require File.dirname(__FILE__) + '/spec_helper'
-require File.dirname(__FILE__) + '/../lib/rails-timeago/helper.rb'
-require File.dirname(__FILE__) + '/support/stub.rb'
 
 describe Rails::Timeago::Helper do
   before { @stub = TimeagoStub.new }
@@ -42,7 +40,7 @@ describe Rails::Timeago::Helper do
     @stub.timeago_tag(time).should include(">#{I18n.l time.to_date}<")
   end
 
-  it 'should have localized time as content date_only is false' do
+  it 'should have localized time as content if date_only is false' do
     time = 3.days.ago
     @stub.timeago_tag(time, :date_only => false).should include(">#{I18n.l time}<")
   end

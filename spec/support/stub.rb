@@ -1,5 +1,7 @@
-class TimeagoStub 
+class TimeagoStub
   include Rails::Timeago::Helper
+
+  I18n.backend.store_translations :en, :hello => 'World'
 
   def time_tag(time, content, options = {})
     options = options.map { |k,v| "#{k}=\"#{v}\""}
