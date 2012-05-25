@@ -43,7 +43,10 @@ module Rails
     end
 
     def self.locale_file(locale)
-      locale_path + 'jquery.timeago.' + locale.to_s + '.js'
+      locale = locale.to_s.downcase
+      locale =~ /(\w+)\-(\w+)/
+      locale = $1 unless $1.blank?
+      locale_path + 'jquery.timeago.' + locale + '.js'
     end
 
     def self.has_locale_file(locale)
