@@ -59,7 +59,7 @@ module Rails
       # locale file for current locale.
       def timeago_script_tag
         if ::Rails::Timeago.has_locale_file(I18n.locale) and I18n.locale != :en
-          return javascript_include_tag 'locales/jquery.timeago.' + I18n.locale.to_s + '.js'
+          return javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(I18n.locale)
         end
         ''
       end

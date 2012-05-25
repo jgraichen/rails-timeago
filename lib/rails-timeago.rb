@@ -43,10 +43,15 @@ module Rails
     end
 
     def self.locale_file(locale)
+      locale_path + locale_file_name(locale)
+    end
+
+    def self.locale_file_name(locale)
+      # TODO: It should actually first check if the full locale name (e.g: nl-NL) exists, if it doesn't, then it should check shortname (e.g nl)
       locale = locale.to_s.downcase
       locale =~ /(\w+)\-(\w+)/
       locale = $1 unless $1.blank?
-      locale_path + 'jquery.timeago.' + locale + '.js'
+      'jquery.timeago.' + locale + '.js'
     end
 
     def self.has_locale_file(locale)
