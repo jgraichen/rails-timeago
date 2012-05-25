@@ -1,86 +1,66 @@
 
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Rails::Timeago::Helper do
-  before { @stub = TimeagoStub.new }
+describe Rails::Timeago do
+  context "#lookup_locale" do
+    it "should return full locale if available" do
+      Rails::Timeago.lookup_locale("zh-CN").should == "zh-CN"
+    end
 
-  it 'should create a time tag' do
-    @stub.timeago_tag(Time.now).should =~ /<time.*>.*<\/time>/
-  end
+    it "should return formatted locale" do
+      Rails::Timeago.lookup_locale("zh-cn").should == "zh-CN"
+    end
 
-  it 'should have title attribute' do
-    @stub.timeago_tag(Time.now).should =~ /<time.*title=".*".*>.*<\/time>/
-  end
+    it "should return lang locale if available" do
+      Rails::Timeago.lookup_locale("nl-NL").should == "nl"
+    end
 
-  it 'should have data-time-ago attribute' do
-    @stub.timeago_tag(Time.now).should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
+    it "should return locale if available" do
+      Rails::Timeago.lookup_locale("de").should == "de"
+    end
 
-  it 'should not have data-time-ago attribute for times before limit' do
-    @stub.timeago_tag(5.days.ago).should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
+    it "should lookup default locale if nothing given" do
+      I18n.locale = "ar"
 
-  it 'should have data-time-ago attribute for times after given limit' do
-    @stub.timeago_tag(5.days.ago, :limit => 6.days.ago).
-      should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
+      Rails::Timeago.lookup_locale.should == "ar"
+    end
 
-  it 'should have not data-time-ago attribute for times before given limit' do
-    @stub.timeago_tag(6.days.ago, :limit => 5.days.ago).
-      should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
+    it "should return english locale if locale does not
+      match and default locale is not available" do
 
-  it 'should have data-time-ago attribute for times before limit if forced' do
-    @stub.timeago_tag(6.days.ago, :force => true).
-      should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
+      I18n.locale = "sjn"
+      Rails::Timeago.lookup_locale("tlh").should == "en"
+    end
 
-  it 'should have localized date as content' do
-    time = 3.days.ago
-    @stub.timeago_tag(time).should include(">#{I18n.l time.to_date}<")
-  end
+    context "with global locale configuration" do
+      before { Rails::Timeago.locales = [:de, :en, "zh-CN", "tlh"] }
+      after  { Rails::Timeago.locales = [] }
 
-  it 'should have localized time as content if date_only is false' do
-    time = 3.days.ago
-    @stub.timeago_tag(time, :date_only => false).should include(">#{I18n.l time}<")
-  end
+      it "should return full locale if available" do
+        Rails::Timeago.lookup_locale("zh-CN").should == "zh-CN"
+      end
 
-  it 'should have time ago in words as content if nojs is true' do
-    time = 3.days.ago
-    @stub.timeago_tag(time, :nojs => true).should =~ /<time.*>%time_ago_in_words%<\/time>/
-  end
+      it "should return lang locale if available" do
+        Rails::Timeago.lookup_locale("en-US").should == "en"
+      end
 
-  it 'should pass format option to localize method' do
-    time = 3.days.ago
-    @stub.timeago_tag(time, :format => :short).
-      should include(">#{I18n.l time.to_date, :format => :short}<")
-  end
+      it "should return use default locale if available" do
+        I18n.locale = "en"
+        Rails::Timeago.lookup_locale.should == "en"
+      end
 
-  it 'should pass html option to tag helper' do
-    @stub.timeago_tag(Time.now, :myattr => 'abc').should =~ /<time.*myattr="abc".*>.*<\/time>/
-  end
+      it "should return default locale for not specified locales" do
+        I18n.locale = "ar"
+        I18n.default_locale = :de
+        Rails::Timeago.lookup_locale.should == "de"
 
-  it "should allow to set global options" do
-    Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
-    time = 7.days.ago
+        I18n.default_locale = :en
+      end
 
-    @stub.timeago_tag(time).
-      should include(">#{I18n.l time.to_date, :format => :short}<")
-    @stub.timeago_tag(time).
-      should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
-
-  it "should allow to override global options" do
-    Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
-    time = 7.days.ago
-
-    @stub.timeago_tag(time, :format => :long).
-      should include(">#{I18n.l time.to_date, :format => :long}<")
-    @stub.timeago_tag(time, :limit => 4.days.ago).
-      should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-  end
-
-  it "should return default string if time is nil" do
-    @stub.timeago_tag(nil).should == '-'
+      it "should find added locales that does not have a locale file in gem" do
+        I18n.locale = "tlh"
+        Rails::Timeago.lookup_locale.should == "tlh"
+      end
+    end
   end
 end

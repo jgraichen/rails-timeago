@@ -11,4 +11,8 @@ class TimeagoStub
   def time_ago_in_words(time)
     "%time_ago_in_words%"
   end
+
+  def javascript_include_tag(path)
+    "<script src=\"#{path}\"></script>"
+  end
 end
