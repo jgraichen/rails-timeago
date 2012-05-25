@@ -56,57 +56,11 @@ module Rails
       end
 
       # Return a JavaScript tag to include jQuery timeago
-      # locale file for current locale.
-      def timeago_script_tag
-        if ::Rails::Timeago.has_locale_file(I18n.locale) and I18n.locale != :en
-          return javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(I18n.locale)
-        end
+      # locale file for current or given locale.
+      def timeago_script_tag(locale = nil)
+        locale = ::Rails::Timeago.lookup_locale locale
+        return javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(locale) if locale != "en"
         ''
-      end
-    end
-
-    # Read or write global rails-timeago default options. If no options are given
-    # the current defaults will be returned.
-    #
-    # Available options:
-    # [:+nojs+]
-    #   Add time ago in words as time tag content instead of absolute time.
-    #   (default: false)
-    #
-    # [:+date_only+]
-    #   Only print date as tag content instead of full time.
-    #   (default: true)
-    #
-    # [:+format+]
-    #   A time format for localize method used to format static time.
-    #   (default: :default)
-    #
-    # [:+limit+]
-    #   Set a limit for time ago tags. All dates before given limit will not be converted.
-    #   Global limit should be given as a block to reevaluate limit each time timeago_tag is called.
-    #   (default: proc { 4.days.ago })
-    #
-    # [:+force+]
-    #   Force time ago tag ignoring limit option.
-    #   (default: false)
-    #
-    # [:+default+]
-    #   String that will be returned if time is nil.
-    #   (default: '-')
-    #
-    def self.default_options(opts = nil)
-      @defaults ||= {
-        :nojs      => false,
-        :force     => false,
-        :format    => :default,
-        :limit     => proc { 4.days.ago },
-        :date_only => true,
-        :default   => '-'
-      }
-      if opts
-        @defaults.merge! opts.extract!(*@defaults.keys.select{|k| opts.include?(k)})
-      else
-        @defaults
       end
     end
   end

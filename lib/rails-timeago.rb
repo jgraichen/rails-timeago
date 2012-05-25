@@ -38,6 +38,51 @@ module Rails
       end
     end
 
+    # Read or write global rails-timeago default options. If no options are given
+    # the current defaults will be returned.
+    #
+    # Available options:
+    # [:+nojs+]
+    #   Add time ago in words as time tag content instead of absolute time.
+    #   (default: false)
+    #
+    # [:+date_only+]
+    #   Only print date as tag content instead of full time.
+    #   (default: true)
+    #
+    # [:+format+]
+    #   A time format for localize method used to format static time.
+    #   (default: :default)
+    #
+    # [:+limit+]
+    #   Set a limit for time ago tags. All dates before given limit will not be converted.
+    #   Global limit should be given as a block to reevaluate limit each time timeago_tag is called.
+    #   (default: proc { 4.days.ago })
+    #
+    # [:+force+]
+    #   Force time ago tag ignoring limit option.
+    #   (default: false)
+    #
+    # [:+default+]
+    #   String that will be returned if time is nil.
+    #   (default: '-')
+    #
+    def self.default_options(opts = nil)
+      @defaults ||= {
+        :nojs      => false,
+        :force     => false,
+        :format    => :default,
+        :limit     => proc { 4.days.ago },
+        :date_only => true,
+        :default   => '-'
+      }
+      if opts
+        @defaults.merge! opts.extract!(*@defaults.keys.select{|k| opts.include?(k)})
+      else
+        @defaults
+      end
+    end
+
     def self.locale_path
       File.dirname(__FILE__) + '/../vendor/assets/javascripts/locales/'
     end
@@ -47,10 +92,6 @@ module Rails
     end
 
     def self.locale_file_name(locale)
-      # TODO: It should actually first check if the full locale name (e.g: nl-NL) exists, if it doesn't, then it should check shortname (e.g nl)
-      locale = locale.to_s.downcase
-      locale =~ /(\w+)\-(\w+)/
-      locale = $1 unless $1.blank?
       'jquery.timeago.' + locale + '.js'
     end
 
@@ -58,15 +99,43 @@ module Rails
       File.exist? locale_file(locale)
     end
 
+    # Look up a timeago locale. If no locale is given I18n's
+    # default locale will be used. Lookup follows the given
+    # order:
+    #   1) ll-CC     (language and country)
+    #   2) ll        (only language)
+    #   3) I18n default locale
+    #   4) "en"
+    def self.lookup_locale(locale = nil)
+      locale = I18n.locale.to_s unless locale
+
+      if locale =~ /^(\w+)(\-(\w+))?$/
+        lang = $1.downcase
+        if $3
+          ctry = $3.upcase
+          return "#{lang}-#{ctry}" if has_locale "#{lang}-#{ctry}"
+        end
+        return lang if has_locale lang
+      end
+
+      return I18n.default_locale.to_s if has_locale I18n.default_locale.to_s
+      "en"
+    end
+
+    def self.has_locale(locale)
+      return locales.include? locale if locales.any?
+      return has_locale_file locale
+    end
+
     def self.locales
-      @locales
+      @locales ||= []
     end
 
     def self.locales=(*attrs)
       if attrs[0].kind_of?(Array)
-        @locales = attrs[0].map(&:to_sym)
+        @locales = attrs[0].map(&:to_s)
       else
-        @locales = attrs.map(&:to_sym)
+        @locales = attrs.map(&:to_s)
       end
     end
   end
