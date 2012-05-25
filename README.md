@@ -74,14 +74,12 @@ longer the application runs.
 
 ## I18n
 
-**Note:** Available since version *1.2.0.rc1*. I18n features are still untested.
-
 **rails-timeago** provides additional localization features and includes locale
 files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
 
 > ar, bg, bs, ca, cy, cz, da, de, el, en, es, fa, fi, fr,
 > he, hr, hu, hy, id, it, ja, ko, nl, no, pl, pt, ro, ru,
-> sv, tr, uk, zh-CN, zh-TW
+> sv, tr, uk, uz, zh-CN, zh-TW
 
 **rails-timeago** will automatically include the locale file for your current
 locale if it is available. You only have to include the following method into
@@ -97,10 +95,12 @@ list to allow precompilation. By default all locale files will be included but
 you can specify a list by adding a initializer similar to:
 
 ```ruby
-Rails::Timeago.locales = [:en, :de]
+Rails::Timeago.locales = [:en, :de, "zh-CN", :sjn]
 ```
 
-This will only add English and German locale files to precompiled assets.
+This will only add English, German, Chinese and Sindarin locale files to
+precompiled assets. *rails-timeago* will also only use these locales for
+locale file lookup for `timeago_script_tag`.
 To add your own locales add a file in JavaScript assets directory named
 `locales/jquery.timeago.<locale>.js` and add your locale to `Rails::Timeago.locales`.
 
