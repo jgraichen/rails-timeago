@@ -50,7 +50,7 @@ module Rails
     end
 
     def self.has_locale_file(locale)
-      File.exist? locale_file(I18n.locale)
+      File.exist? locale_file(locale)
     end
 
     def self.locales
