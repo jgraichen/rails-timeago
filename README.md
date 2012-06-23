@@ -104,6 +104,17 @@ locale file lookup for `timeago_script_tag`.
 To add your own locales add a file in JavaScript assets directory named
 `locales/jquery.timeago.<locale>.js` and add your locale to `Rails::Timeago.locales`.
 
+**rails-timeago** provides support for custom locale file mappings. That may be
+especially useful to override the embedded `en` locale because there is no English
+locale file that can be overridden:
+
+```ruby
+Rails::Timeago.map_locale "en", "better/locales/en.js"
+```
+
+Given that mapping rails-timeago's `timeago_script_tag` will include the mapped
+locale file into your page.
+
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)

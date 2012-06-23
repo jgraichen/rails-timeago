@@ -87,14 +87,33 @@ describe Rails::Timeago::Helper do
   end
 
   context "#timeago_script_tag" do
-    it "should not return anything if locale is 'en'" do
+    it "should not return anything if locale is 'en' and no 'en' mapping exists" do
+      Rails::Timeago.map_locale :en, nil
       I18n.locale = "en"
       @stub.timeago_script_tag.should == ""
+    end
+
+    it "should return mapped 'en' locale file if mapping exists" do
+      Rails::Timeago.map_locale :en, "better/locale/en.js"
+
+      I18n.locale = "en"
+      @stub.timeago_script_tag.should == '<script src="better/locale/en.js"></script>'
+
+      Rails::Timeago.map_locale :en, nil
     end
 
     it "should return javascript tag with locale file" do
       I18n.locale = "de"
       @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.de.js"></script>'
+    end
+
+    it "should return javascript tag with mapped locale file" do
+      Rails::Timeago.map_locale :de, "deutsch.js"
+
+      I18n.locale = "de"
+      @stub.timeago_script_tag.should == '<script src="deutsch.js"></script>'
+
+      Rails::Timeago.map_locale :de, nil
     end
 
     it "should return javascript tag with full locale file if available" do

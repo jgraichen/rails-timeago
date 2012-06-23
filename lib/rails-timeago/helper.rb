@@ -56,11 +56,18 @@ module Rails
       end
 
       # Return a JavaScript tag to include jQuery timeago
-      # locale file for current or given locale.
+      # or custom mapped locale file for current or given locale.
       def timeago_script_tag(locale = nil)
         locale = ::Rails::Timeago.lookup_locale locale
-        return javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(locale) if locale != "en"
-        ''
+
+        file = ::Rails::Timeago.mapped_locale locale
+        return javascript_include_tag file if file
+
+        if locale != 'en'
+          javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(locale)
+        else
+          '' # English locale is embedded in jQuery timeago plugin file.
+        end
       end
     end
   end

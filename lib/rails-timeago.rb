@@ -83,6 +83,21 @@ module Rails
       end
     end
 
+    # Allow to map a locale to a specific url. May be useful for
+    # overriding embedded english locale:
+    #
+    #   Rails::Timeago.map_locale :en, "better/locales/en.js"
+    #
+    def self.map_locale(locale, url)
+      @locale_map ||= {}
+      @locale_map[locale.to_s] = url
+    end
+
+    def self.mapped_locale(locale)
+      @locale_map ||= {}
+      @locale_map[locale.to_s]
+    end
+
     def self.locale_path
       File.dirname(__FILE__) + '/../vendor/assets/javascripts/locales/'
     end
@@ -124,6 +139,7 @@ module Rails
 
     def self.has_locale(locale)
       return locales.include? locale if locales.any?
+      return true if @locale_map and @locale_map[locale.to_s]
       return has_locale_file locale
     end
 
