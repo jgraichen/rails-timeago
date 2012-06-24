@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 0.11.2
+ * @version 0.11.3
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -19,6 +19,8 @@
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
       return inWords($.timeago.parse(timestamp));
+    } else if (typeof timestamp === "number") {
+      return inWords(new Date(timestamp));
     } else {
       return inWords($.timeago.datetime(timestamp));
     }

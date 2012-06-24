@@ -77,7 +77,7 @@ longer the application runs.
 **rails-timeago** provides additional localization features and includes locale
 files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
 
-> ar, bg, bs, ca, cy, cz, da, de, el, en, es, fa, fi, fr,
+> ar, bg, bs, ca, cy, cz, da, de, el, en, en-short, es, fa, fi, fr,
 > he, hr, hu, hy, id, it, ja, ko, nl, no, pl, pt, ro, ru,
 > sv, tr, uk, uz, zh-CN, zh-TW
 
