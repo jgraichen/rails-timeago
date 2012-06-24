@@ -21,7 +21,7 @@ module Rails
                   'locales/jquery.timeago.' + locale.to_s + '.js'
                 end
               end
-          elsif ::Rails::Timeago.locales.nil?
+          elsif ::Rails::Timeago.locales.empty?
             app.config.assets.precompile +=
               Dir[Rails::Timeago.locale_path + '*.js'].map do |f|
                 'locales/' + File.basename(f)
