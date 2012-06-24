@@ -115,6 +115,14 @@ Rails::Timeago.map_locale "en", "better/locales/en.js"
 Given that mapping rails-timeago's `timeago_script_tag` will include the mapped
 locale file into your page.
 
+**Node:** Rails default `application.js` file contains a line to require all JavaScript
+in your assets directory. That will also include all your custom locale files if you
+place them in `app/assets/javascripts/locales` and will result in unexpected behavior when
+using `en` locale (see #5).
+
+A workaround is to remove the `//= require_tree .` line from `application.js` or to move your
+custom locale files to `lib/assets/javascripts/locales`.
+
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
