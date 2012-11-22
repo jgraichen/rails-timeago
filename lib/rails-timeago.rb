@@ -5,7 +5,7 @@ module Rails
   module Timeago
     if defined?(::Rails::Engine)
       class Engine < ::Rails::Engine # :nodoc:
-        initializer 'rails-timeago' do |app|
+        initializer 'rails-timeago', group: :all do |app|
           ActiveSupport.on_load(:action_controller) do
             include Rails::Timeago::Helper
           end
