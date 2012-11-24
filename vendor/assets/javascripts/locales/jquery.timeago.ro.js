@@ -1,5 +1,5 @@
 // Romanian
-$.timeago.settings.strings = {
+$.timeago.settings.strings["ro"] = {
   prefixAgo: "acum",
   prefixFromNow: "in timp de",
   suffixAgo: "",

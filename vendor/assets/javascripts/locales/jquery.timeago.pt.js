@@ -1,5 +1,5 @@
 // Portuguese
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["pt"] = {
    suffixAgo: "atrás",
    suffixFromNow: "a partir de agora",
    seconds: "menos de um minuto",

@@ -1,5 +1,5 @@
 // Hebrew
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["he"] = {
   prefixAgo: "לפני",
   prefixFromNow: "מעכשיו",
   suffixAgo: "",

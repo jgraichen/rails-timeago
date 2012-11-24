@@ -1,5 +1,5 @@
 // Greek
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["el"] = {
   prefixAgo: "πριν",
   prefixFromNow: "σε",
   suffixAgo: "",

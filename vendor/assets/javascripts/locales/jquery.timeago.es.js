@@ -1,5 +1,5 @@
 // Spanish
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["es"] = {
    prefixAgo: "hace",
    prefixFromNow: "dentro de",
    suffixAgo: "",

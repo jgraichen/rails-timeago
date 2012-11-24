@@ -1,5 +1,5 @@
 // Korean
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["ko"] = {
   suffixAgo: "전",
   suffixFromNow: "후",
   seconds: "1분 이내",

@@ -1,5 +1,5 @@
 // Dutch
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["nl"] = {
   prefixAgo: null,
   prefixFromNow: "",
   suffixAgo: "geleden",

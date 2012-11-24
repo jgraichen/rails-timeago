@@ -1,5 +1,5 @@
 // Catalan
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["ca"] = {
   prefixAgo: "fa",
   prefixFromNow: "d'aqui a",
   suffixAgo: null,

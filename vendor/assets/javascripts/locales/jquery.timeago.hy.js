@@ -1,5 +1,5 @@
 // Armenian
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["hy"] = {
   prefixAgo: null,
   prefixFromNow: null,
   suffixAgo: "առաջ",

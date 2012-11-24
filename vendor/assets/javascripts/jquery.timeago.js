@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 0.11.3
+ * @version 0.11.4
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -31,7 +31,8 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
-      strings: {
+      lang: "en",
+      strings: { "en": {
         prefixAgo: null,
         prefixFromNow: null,
         suffixAgo: "ago",
@@ -49,10 +50,10 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
-      }
+      }}
     },
     inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
+      var $l = this.settings.strings[this.settings.lang] || this.settings.strings["en"] || this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
       if (this.settings.allowFuture) {
@@ -91,7 +92,7 @@
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
-      s = s.replace(/\.\d\d\d+/,""); // remove milliseconds
+      s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
@@ -127,6 +128,7 @@
   }
 
   function prepareData(element) {
+    $t.settings.lang = ($(element).attr('lang')) ? $(element).attr('lang') : $t.settings.lang;
     element = $(element);
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });

@@ -1,5 +1,5 @@
 // Traditional Chinese, zh-tw
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["zh-TW"] = {
   prefixAgo: null,
   prefixFromNow: "從現在開始",
   suffixAgo: "之前",

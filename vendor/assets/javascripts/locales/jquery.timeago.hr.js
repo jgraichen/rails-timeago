@@ -14,7 +14,7 @@
         }
     };
 
-    jQuery.timeago.settings.strings = {
+    jQuery.timeago.settings.strings["hr"] = {
         prefixAgo: "prije",
         prefixFromNow: "za",
         suffixAgo: null,

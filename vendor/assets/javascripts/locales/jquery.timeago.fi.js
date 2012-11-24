@@ -1,5 +1,5 @@
 // Finnish
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["fi"] = {
   prefixAgo: null,
   prefixFromNow: null,
   suffixAgo: "sitten",

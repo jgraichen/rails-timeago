@@ -1,5 +1,5 @@
 // Hungarian
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["hu"] = {
   prefixAgo: null,
   prefixFromNow: null,
   suffixAgo: null,

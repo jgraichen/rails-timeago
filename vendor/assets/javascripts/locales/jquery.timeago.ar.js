@@ -12,7 +12,7 @@
       return z; // 11+
     }
   }
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ar"] = {
     prefixAgo: "منذ",
     prefixFromNow: "يتبقى",
     suffixAgo: null,

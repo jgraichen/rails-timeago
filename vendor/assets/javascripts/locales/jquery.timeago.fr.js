@@ -1,5 +1,5 @@
 // French
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["fr"] = {
    // environ ~= about, it's optional
    prefixAgo: "il y a",
    prefixFromNow: "d'ici",

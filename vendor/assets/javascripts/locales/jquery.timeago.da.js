@@ -1,5 +1,5 @@
 // Danish
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["da"] = {
   prefixAgo: "for",
   prefixFromNow: "om",
   suffixAgo: "siden",
