@@ -55,19 +55,9 @@ module Rails
         I18n.l time, :format => time_options[:format]
       end
 
-      # Return a JavaScript tag to include jQuery timeago
-      # or custom mapped locale file for current or given locale.
-      def timeago_script_tag(locale = nil)
-        locale = ::Rails::Timeago.lookup_locale locale
-
-        file = ::Rails::Timeago.mapped_locale locale
-        return javascript_include_tag file if file
-
-        if locale != 'en'
-          javascript_include_tag 'locales/' + ::Rails::Timeago.locale_file_name(locale)
-        else
-          '' # English locale is embedded in jQuery timeago plugin file.
-        end
+      # Return a JavaScript tag to set jQuery timeago locale.
+      def timeago_script_tag
+        javascript_tag "jQuery.timeago.settings.lang=\"#{I18n.locale}\";" if I18n.locale != 'en'
       end
     end
   end

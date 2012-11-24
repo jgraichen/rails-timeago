@@ -87,76 +87,9 @@ describe Rails::Timeago::Helper do
   end
 
   context "#timeago_script_tag" do
-    it "should not return anything if locale is 'en' and no 'en' mapping exists" do
-      Rails::Timeago.map_locale :en, nil
+    it "should return a javascript snippet to set jQuery timeago locale" do
       I18n.locale = "en"
-      @stub.timeago_script_tag.should == ""
-    end
-
-    it "should return mapped 'en' locale file if mapping exists" do
-      Rails::Timeago.map_locale :en, "better/locale/en.js"
-
-      I18n.locale = "en"
-      @stub.timeago_script_tag.should == '<script src="better/locale/en.js"></script>'
-
-      Rails::Timeago.map_locale :en, nil
-    end
-
-    it "should return javascript tag with locale file" do
-      I18n.locale = "de"
-      @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.de.js"></script>'
-    end
-
-    it "should return javascript tag with mapped locale file" do
-      Rails::Timeago.map_locale :de, "deutsch.js"
-
-      I18n.locale = "de"
-      @stub.timeago_script_tag.should == '<script src="deutsch.js"></script>'
-
-      Rails::Timeago.map_locale :de, nil
-    end
-
-    it "should return javascript tag with full locale file if available" do
-      I18n.locale = "zh-CN"
-      @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.zh-CN.js"></script>'
-    end
-
-    it "should return javascript tag with lang locale file if available" do
-      I18n.locale = "nl-NL"
-      @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.nl.js"></script>'
-    end
-
-    it "should return javascript tag with formatted locale file" do
-      I18n.locale = "zh-cn"
-      @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.zh-CN.js"></script>'
-    end
-
-    context "with global locale configuration" do
-      before { Rails::Timeago.locales = [:de, :en, "zh-CN", "tlh", "nl"] }
-      after  { Rails::Timeago.locales = [] }
-
-      it "should include full locale if available" do
-        I18n.locale = "zh-CN"
-        @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.zh-CN.js"></script>'
-      end
-
-      it "should include lang locale if available" do
-        I18n.locale = "nl-NL"
-        @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.nl.js"></script>'
-      end
-
-      it "should include default locale for not specified locales" do
-        I18n.locale = :ar
-        I18n.default_locale = :de
-        @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.de.js"></script>'
-
-        I18n.default_locale = :en
-      end
-
-      it "should find added locales that does not have a locale file in gem" do
-        I18n.locale = "tlh"
-        @stub.timeago_script_tag.should == '<script src="locales/jquery.timeago.tlh.js"></script>'
-    end
+      @stub.timeago_script_tag.should == '<script>jQuery.timeago.settings.lang="en";</script>'
     end
   end
 end

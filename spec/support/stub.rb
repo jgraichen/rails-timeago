@@ -12,7 +12,7 @@ class TimeagoStub
     "%time_ago_in_words%"
   end
 
-  def javascript_include_tag(path)
-    "<script src=\"#{path}\"></script>"
+  def javascript_tag(source)
+    "<script>#{source}</script>"
   end
 end
