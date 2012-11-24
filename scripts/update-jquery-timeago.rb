@@ -5,7 +5,8 @@ puts `mkdir ./tmp`
 puts `git clone https://github.com/rmm5t/jquery-timeago.git ./tmp`
 
 puts "Patch jquery timeago..."
-puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.patch`
+puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.1.patch`
+puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.2.patch`
 
 print 'Patch locale files ... '
 `rm ./tmp/locales/jquery.timeago.en.js`

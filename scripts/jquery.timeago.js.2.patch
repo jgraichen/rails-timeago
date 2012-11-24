@@ -1,0 +1,39 @@
+--- a/jquery.timeago.js
++++ b/jquery.timeago.js
+@@ -52,8 +52,8 @@
+         numbers: []
+       }}
+     },
+-    inWords: function(distanceMillis) {
+-      var $l = this.settings.strings[this.settings.lang] || this.settings.strings["en"] || this.settings.strings;
++    inWords: function(distanceMillis, lang) {
++      var $l = this.settings.strings[lang] || this.settings.strings[this.settings.lang] || this.settings.strings["en"];
+       var prefix = $l.prefixAgo;
+       var suffix = $l.suffixAgo;
+       if (this.settings.allowFuture) {
+@@ -122,13 +122,12 @@
+   function refresh() {
+     var data = prepareData(this);
+     if (!isNaN(data.datetime)) {
+-      $(this).text(inWords(data.datetime));
++      $(this).text(inWords(data.datetime, ($(this).attr('lang')) ? $(this).attr('lang') : $t.settings.lang));
+     }
+     return this;
+   }
+
+   function prepareData(element) {
+-    $t.settings.lang = ($(element).attr('lang')) ? $(element).attr('lang') : $t.settings.lang;
+     element = $(element);
+     if (!element.data("timeago")) {
+       element.data("timeago", { datetime: $t.datetime(element) });
+@@ -140,8 +139,8 @@
+     return element.data("timeago");
+   }
+
+-  function inWords(date) {
+-    return $t.inWords(distance(date));
++  function inWords(date, lang) {
++    return $t.inWords(distance(date), lang);
+   }
+
+   function distance(date) {
