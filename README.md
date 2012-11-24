@@ -79,13 +79,13 @@ longer the application runs.
 
 **rails-timeago 2** ships with a modified version of jQuery timeago that allows to include all locale files at once and set the locale via an option or per element via the `lang` attribute.
 
-The following snippet will print a script tag that set the jQuery timeago locale according to your `I18n.locale`.
+The following snippet will print a script tag that set the jQuery timeago locale according to your `I18n.locale`:
 
 ```ruby
 <%= timeago_script_tag %>
 ```
 
-Just insert it in your application layout's html head.
+Just insert it in your application layout's html head. If you use another I18n framework for JavaScript you can also directly set `jQuery.timeago.settings.lang`.
 
 Do not forget to require the needed locale files by either require `rails-timeago-all` in your `application.js` file or require specific locale files:
 
