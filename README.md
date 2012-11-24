@@ -25,6 +25,10 @@ To use bundled jQuery Timeago plugin add this require statement to your applicat
 
 This will also convert all matching time tags on page load.
 
+Use the following to also include all include all available locale files:
+
+	//= require rails-timeago-all
+
 ## Usage
 
 Use the timeago_tag helper like any other regular tag helper:
@@ -60,7 +64,6 @@ Force time ago tag ignoring limit option.
 String that will be returned if time is nil.
 (default: '-')
 
-
 All other options will be given as options to the time tag helper.
 The above options can be assigned globally as defaults using
 
@@ -74,54 +77,34 @@ longer the application runs.
 
 ## I18n
 
-**rails-timeago** provides additional localization features and includes locale
-files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
+**rails-timeago 2** ships with a modified version of jQuery timeago that allows to include all locale files at once and set the locale via an option or per element via the `lang` attribute.
 
-> ar, bg, bs, ca, cy, cz, da, de, el, en, en-short, es, fa, fi, fr,
-> he, hr, hu, hy, id, it, ja, ko, nl, no, pl, pt, ro, ru,
-> sv, tr, uk, uz, zh-CN, zh-TW
-
-**rails-timeago** will automatically include the locale file for your current
-locale if it is available. You only have to include the following method into
-your html head tag:
+The following snippet will print a script tag that set the jQuery timeago locale according to your `I18n.locale`.
 
 ```ruby
 <%= timeago_script_tag %>
 ```
 
-That will add a script include tag to include the needed locale file.
-**rails-timeago** will also add all locale files to Rails precompiled assets
-list to allow precompilation. By default all locale files will be included but
-you can specify a list by adding a initializer similar to:
+Just insert it in your application layout's html head.
 
-```ruby
-Rails::Timeago.locales = [:en, :de, "zh-CN", :sjn]
-```
+Do not forget to require the needed locale files by either require `rails-timeago-all` in your `application.js` file or require specific locale files:
 
-This will only add English, German, Chinese and Sindarin locale files to
-precompiled assets. *rails-timeago* will also only use these locales for
-locale file lookup for `timeago_script_tag`.
-To add your own locales add a file in JavaScript assets directory named
-`locales/jquery.timeago.<locale>.js` and add your locale to `Rails::Timeago.locales`.
+	//= require locales/jquery.timeago.de.js
+	//= require locales/jquery.timeago.ru.js
 
-**rails-timeago** provides support for custom locale file mappings. That may be
-especially useful to override the embedded `en` locale because there is no English
-locale file that can be overridden:
+*Note:* English is included in jQuery timeago library, but can be easily override by include an own file that defines `jQuery.timeago.settings.strings["en"]`. See a locale file for more details.
 
-```ruby
-Rails::Timeago.map_locale "en", "better/locales/en.js"
-```
+**rails-timeago** includes locale files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
 
-Given that mapping rails-timeago's `timeago_script_tag` will include the mapped
-locale file into your page.
+> ar, bg, bs, ca, cy, cz, da, de, el, en, en-short, es, fa, fi, fr,
+> he, hr, hu, hy, id, it, ja, ko, mk, nl, no, pl, pt, pt-br, ro, ru,
+> sv, tr, uk, uz, zh-CN, zh-TW
 
-**Note:** Rails default `application.js` file contains a line to require all JavaScript
-in your assets directory. That will also include all your custom locale files if you
-place them in `app/assets/javascripts/locales` and will result in unexpected behavior when
-using `en` locale (see #5).
+Your customized jQuery locale files must be changed to work with **rails-timeago 2**. Instead of defining your locale strings as `jQuery.timeago.settings.strings` you need to define them like this:
 
-A workaround is to remove the `//= require_tree .` line from `application.js` or to move your
-custom locale files to `lib/assets/javascripts/locales`.
+	jQuery.timeago.settings.string["en"] = {
+		...
+	}
 
 ## License
 
