@@ -8,7 +8,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails-timeago'
+gem 'rails-timeago', '~> 2.0.0.beta1'
 ```
 
 And then execute:
@@ -25,7 +25,7 @@ To use bundled jQuery Timeago plugin add this require statement to your applicat
 
 This will also convert all matching time tags on page load.
 
-Use the following to also include all include all available locale files:
+Use the following to also include all available locale files:
 
 	//= require rails-timeago-all
 
@@ -71,13 +71,15 @@ The above options can be assigned globally as defaults using
 Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
 ```
 
-A global limit should always be given as a block that will be evaluated each time
-the rails timeago_tag helper is called. That avoids the limit becoming smaller the
-longer the application runs.
+A global limit should always be given as a block that will be evaluated each time the rails timeago_tag helper is called. That avoids the limit becoming smaller the longer the application runs.
 
 ## I18n
 
-**rails-timeago 2** ships with a modified version of jQuery timeago that allows to include all locale files at once and set the locale via an option or per element via the `lang` attribute.
+**rails-timeago 2** ships with a modified version of jQuery timeago that allows to include all locale files at once and set the locale via an option or per element via the `lang` attribute:
+
+```erb
+<%= timeago_tag Time.zone.now, :lang => :de %>
+```
 
 The following snippet will print a script tag that set the jQuery timeago locale according to your `I18n.locale`:
 
