@@ -104,7 +104,7 @@ Do not forget to require the needed locale files by either require `rails-timeag
 
 Your customized jQuery locale files must be changed to work with **rails-timeago 2**. Instead of defining your locale strings as `jQuery.timeago.settings.strings` you need to define them like this:
 
-	jQuery.timeago.settings.string["en"] = {
+	jQuery.timeago.settings.strings["en"] = {
 		...
 	}
 
