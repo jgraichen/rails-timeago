@@ -8,7 +8,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails-timeago', '~> 2.0.0.beta1'
+gem 'rails-timeago', '~> 2.0'
 ```
 
 And then execute:
