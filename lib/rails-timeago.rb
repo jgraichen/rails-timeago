@@ -47,19 +47,29 @@ module Rails
     #   (default: '-')
     #
     def self.default_options(opts = nil)
-      @defaults ||= {
-        :nojs      => false,
-        :force     => false,
-        :format    => :default,
-        :limit     => proc { 4.days.ago },
-        :date_only => true,
-        :default   => '-'
-      }
+      @defaults ||= self.option_hash
       if opts
         @defaults.merge! opts.extract!(*@defaults.keys.select{|k| opts.include?(k)})
       else
         @defaults
       end
+    end
+
+    # Reset options to default values
+    def self.reset_default_options
+      @defaults = self.option_hash
+    end
+
+    def self.option_hash
+      {
+        :nojs      => false,
+        :force     => false,
+        :format    => :default,
+        :limit     => proc { 4.days.ago },
+        :date_only => true,
+        :default   => '-',
+        :title     => proc { |time, options| I18n.l time, :format => options[:format] }
+      }
     end
   end
 end

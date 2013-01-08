@@ -3,18 +3,53 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Rails::Timeago::Helper do
   before { @stub = TimeagoStub.new }
+  after  { Rails::Timeago.reset_default_options }
+  let(:time) { Time.now }
 
   context "#timeago_tag" do
     it 'should create a time tag' do
-      @stub.timeago_tag(Time.now).should =~ /<time.*>.*<\/time>/
+      @stub.timeago_tag(time).should =~ /<time.*>.*<\/time>/
     end
 
     it 'should have title attribute' do
-      @stub.timeago_tag(Time.now).should =~ /<time.*title=".*".*>.*<\/time>/
+      @stub.timeago_tag(time).should =~ /<time.*title=".*".*>.*<\/time>/
+    end
+
+    it 'should have human readable datetime as title attribute' do
+      @stub.timeago_tag(time).should include("title=\"#{I18n.l time}\"")
+    end
+
+    it 'should have human readable datetime as title attribute with given format' do
+      @stub.timeago_tag(time, :format => :short).should include("title=\"#{I18n.l time, :format => :short}\"")
+    end
+
+    it 'should have human readable datetime as title attribute with global format' do
+      Rails::Timeago.default_options :format => :short
+      @stub.timeago_tag(time).should include("title=\"#{I18n.l time, :format => :short}\"")
+    end
+
+    it 'should have no title attribute if title is set to false globally' do
+      Rails::Timeago.default_options :title => false
+      @stub.timeago_tag(time).should_not =~ /<time.*title=".*".*>.*<\/time>/
+    end
+
+    it 'should have no title attribute if title is set to nil globally' do
+      Rails::Timeago.default_options :title => nil
+      @stub.timeago_tag(time).should_not =~ /<time.*title=".*".*>.*<\/time>/
+    end
+
+    it 'should have title attribute with proc value globally' do
+      Rails::Timeago.default_options :title => proc { |time, options| options[:format] }
+      @stub.timeago_tag(time, :format => :short).should =~ /<time.*title="short".*>.*<\/time>/
+    end
+
+    it 'should have title attribute with proc value locally' do
+      @stub.timeago_tag(time, :format => :long,
+        :title => proc { |time, options| options[:format] }).should =~ /<time.*title="long".*>.*<\/time>/
     end
 
     it 'should have data-time-ago attribute' do
-      @stub.timeago_tag(Time.now).should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+      @stub.timeago_tag(time).should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
     end
 
     it 'should not have data-time-ago attribute for times before limit' do
@@ -58,7 +93,7 @@ describe Rails::Timeago::Helper do
     end
 
     it 'should pass html option to tag helper' do
-      @stub.timeago_tag(Time.now, :myattr => 'abc').should =~ /<time.*myattr="abc".*>.*<\/time>/
+      @stub.timeago_tag(time, :myattr => 'abc').should =~ /<time.*myattr="abc".*>.*<\/time>/
     end
 
     it "should allow to set global options" do

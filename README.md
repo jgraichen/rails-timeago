@@ -64,6 +64,10 @@ Force time ago tag ignoring limit option.
 String that will be returned if time is nil.
 (default: '-')
 
+**title**
+A string or block that will be used to create a title attribute for timeago tags. It set to nil or false no title attribute will be set.
+(default: proc { |time, options| I18n.l time, :format => options[:format] })
+
 All other options will be given as options to the time tag helper.
 The above options can be assigned globally as defaults using
 
