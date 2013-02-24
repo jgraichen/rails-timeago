@@ -1,4 +1,4 @@
-# rails-timeago
+# rails-timeago [![Build Status](https://travis-ci.org/jgraichen/rails-timeago.png?branch=master)](https://travis-ci.org/jgraichen/rails-timeago) [![Code Climate](https://codeclimate.com/github/jgraichen/rails-timeago.png)](https://codeclimate.com/github/jgraichen/rails-timeago)
 
 **rails-timeago** provides a timeago_tag helper to create time tags usable for
 [jQuery Timeago](https://github.com/rmm5t/jquery-timeago) plugin.
