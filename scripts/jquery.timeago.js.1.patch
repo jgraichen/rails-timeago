@@ -1,9 +1,9 @@
 --- a/jquery.timeago.js
 +++ b/jquery.timeago.js
 @@ -31,7 +31,8 @@
-     settings: {
        refreshMillis: 60000,
        allowFuture: false,
+       localeTitle: false,
 -      strings: {
 +      lang: "en",
 +      strings: { "en": {

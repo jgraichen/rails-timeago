@@ -40,6 +40,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
+      localeTitle: false,
       lang: "en",
       strings: { "en": {
         prefixAgo: null,
@@ -161,7 +162,9 @@
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
-      if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
+      if ($t.settings.localeTitle) {
+        element.attr("title", element.data('timeago').datetime.toLocaleString())
+      } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
     }
