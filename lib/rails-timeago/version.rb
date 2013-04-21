@@ -3,7 +3,7 @@ module Rails
     module VERSION
       MAJOR = 2
       MINOR = 2
-      PATCH = 2
+      PATCH = 3
       STAGE = nil
 
       def self.to_s
