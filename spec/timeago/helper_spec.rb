@@ -119,6 +119,15 @@ describe Rails::Timeago::Helper do
     it "should return default string if time is nil" do
       @stub.timeago_tag(nil).should == '-'
     end
+
+    it 'should respect limit option also in nojs tag content' do
+      time = 6.days.ago
+
+      @stub.timeago_tag(time, :nojs => true, :limit => 5.days.ago).
+          should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+      @stub.timeago_tag(time, :nojs => true, :limit => 5.days.ago).
+          should include(">#{I18n.l time.to_date}<")
+    end
   end
 
   context "#timeago_script_tag" do
