@@ -102,9 +102,7 @@ Do not forget to require the needed locale files by either require `rails-timeag
 
 **rails-timeago** includes locale files for the following locales taken from [jQuery Timeago](https://github.com/rmm5t/jquery-timeago).
 
-> ar, bg, bs, ca, cy, cz, da, de, el, en, en-short, es, fa, fi, fr,
-> he, hr, hu, hy, id, it, ja, ko, mk, nl, no, pl, pt, pt-br, ro, ru,
-> sv, tr, uk, uz, zh-CN, zh-TW
+> de cy pl mk zh-CN bs en-short it fi es uk lt zh-TW sk hy ca pt el sv ar no fa fr pt-br tr he bg ko uz cz sl hu id hr ru nl fr-short da ja ro th
 
 Your customized jQuery locale files must be changed to work with **rails-timeago 2**. Instead of defining your locale strings as `jQuery.timeago.settings.strings` you need to define them like this:
 
