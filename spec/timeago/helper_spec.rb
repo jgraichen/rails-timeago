@@ -23,6 +23,10 @@ describe Rails::Timeago::Helper do
       @stub.timeago_tag(time, :format => :short).should include("title=\"#{I18n.l time, :format => :short}\"")
     end
 
+    it 'should have human readable datetime as title attribute with given format' do
+      @stub.timeago_tag(time, :format => proc { |time, options| :long }).should include("title=\"#{I18n.l time, :format => :long}\"")
+    end
+
     it 'should have human readable datetime as title attribute with global format' do
       Rails::Timeago.default_options :format => :short
       @stub.timeago_tag(time).should include("title=\"#{I18n.l time, :format => :short}\"")
@@ -46,6 +50,11 @@ describe Rails::Timeago::Helper do
     it 'should have title attribute with proc value locally' do
       @stub.timeago_tag(time, :format => :long,
         :title => proc { |time, options| options[:format] }).should =~ /<time.*title="long".*>.*<\/time>/
+    end
+
+    it 'should have format attribute with proc value locally' do
+      @stub.timeago_tag(time,
+        :format => proc { |time, options| :long }).should include(">#{I18n.l time.to_date, :format => :long}<")
     end
 
     it 'should have data-time-ago attribute' do
