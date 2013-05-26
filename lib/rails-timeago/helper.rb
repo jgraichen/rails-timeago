@@ -39,6 +39,7 @@ module Rails
         time_options = time_options.merge html_options.extract!(*time_options.keys.select{|k| html_options.include?(k)})
         return time_options[:default] if time.nil?
 
+        time_options[:format] = time_options[:format].call(time, time_options) if time_options[:format].is_a?(Proc)
         if time_options[:title]
           html_options.merge! :title => time_options[:title].is_a?(Proc) ? time_options[:title].call(time, time_options) : time_options[:title]
         end
