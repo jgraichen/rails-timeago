@@ -3,3 +3,6 @@ rvm:
   - 2.0.0
   - jruby
   - 1.9.3
+matrix:
+  allow_failures:
+  - rvm: jruby
