@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{jQuery Timeago helper for Rails 3}
   gem.summary       = %q{A Rails Helper to create time tags usable for jQuery Timeago plugin}
   gem.homepage      = "https://github.com/jgraichen/rails-timeago"
+  gem.license       = 'MIT'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n").reject{|file| file =~ /^scripts/}
