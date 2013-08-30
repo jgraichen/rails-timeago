@@ -5,7 +5,7 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ```ruby
 gem 'rails-timeago', '~> 2.0'
@@ -19,7 +19,7 @@ Or install it yourself as:
 
     $ gem install rails-timeago
 
-To use bundled jQuery Timeago plugin add this require statement to your application.js file:
+To use bundled jQuery Timeago plugin add this require statement to your `application.js` file:
 
     //= require rails-timeago
 
@@ -27,7 +27,7 @@ This will also convert all matching time tags on page load.
 
 Use the following to also include all available locale files:
 
-	//= require rails-timeago-all
+    //= require rails-timeago-all
 
 ## Usage
 
@@ -42,27 +42,27 @@ Use the timeago_tag helper like any other regular tag helper:
 
 **nojs**
 Add time ago in words as time tag content instead of absolute time.
-(default: false)
+(default: `false`)
 
 **date_only**
 Only print date as tag content instead of full time.
-(default: true)
+(default: `true`)
 
 **format**
 A time format for localize method used to format static time.
-(default: default)
+(default: `default`)
 
 **limit**
 Set a limit for time ago tags. All dates before given limit will not be converted.
-(default: 4.days.ago)
+(default: `4.days.ago`)
 
 **force**
 Force time ago tag ignoring limit option.
-(default: false)
+(default: `false`)
 
 **default**
-String that will be returned if time is nil.
-(default: '-')
+String that will be returned if time is `nil`.
+(default: `'-'`)
 
 **title**
 A string or block that will be used to create a title attribute for timeago tags. It set to nil or false no title attribute will be set.
@@ -75,7 +75,7 @@ The above options can be assigned globally as defaults using
 Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
 ```
 
-A global limit should always be given as a block that will be evaluated each time the rails timeago_tag helper is called. That avoids the limit becoming smaller the longer the application runs.
+A global limit should always be given as a block that will be evaluated each time the rails `timeago_tag` helper is called. That avoids the limit becoming smaller the longer the application runs.
 
 ## I18n
 
@@ -87,16 +87,22 @@ A global limit should always be given as a block that will be evaluated each tim
 
 The following snippet will print a script tag that set the jQuery timeago locale according to your `I18n.locale`:
 
-```ruby
+```erb
 <%= timeago_script_tag %>
 ```
 
-Just insert it in your application layout's html head. If you use another I18n framework for JavaScript you can also directly set `jQuery.timeago.settings.lang`.
+Just insert it in your application layout's html head. If you use another I18n framework for JavaScript you can also directly set `jQuery.timeago.settings.lang`. For example:
+
+```js
+jQuery.timeago.settings.lang = $('html').attr('lang')
+````
 
 Do not forget to require the needed locale files by either require `rails-timeago-all` in your `application.js` file or require specific locale files:
 
-	//= require locales/jquery.timeago.de.js
-	//= require locales/jquery.timeago.ru.js
+```js
+//= require locales/jquery.timeago.de.js
+//= require locales/jquery.timeago.ru.js
+```
 
 *Note:* English is included in jQuery timeago library, but can be easily override by include an own file that defines `jQuery.timeago.settings.strings["en"]`. See a locale file for more details.
 
@@ -106,9 +112,11 @@ Do not forget to require the needed locale files by either require `rails-timeag
 
 Your customized jQuery locale files must be changed to work with **rails-timeago 2**. Instead of defining your locale strings as `jQuery.timeago.settings.strings` you need to define them like this:
 
-	jQuery.timeago.settings.strings["en"] = {
-		...
-	}
+```js
+jQuery.timeago.settings.strings["en"] = {
+    ...
+}
+```
 
 ## License
 
