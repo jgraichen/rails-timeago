@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.1.0
+ * @version 1.3.0
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -41,8 +41,8 @@
       refreshMillis: 60000,
       allowFuture: false,
       localeTitle: false,
-      lang: "en",
-      strings: { "en": {
+      cutoff: 0,
+      strings: {
         prefixAgo: null,
         prefixFromNow: null,
         suffixAgo: "ago",
@@ -60,10 +60,10 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
-      }}
+      }
     },
-    inWords: function(distanceMillis, lang) {
-      var $l = this.settings.strings[lang] || this.settings.strings[this.settings.lang] || this.settings.strings["en"];
+    inWords: function(distanceMillis) {
+      var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
       if (this.settings.allowFuture) {
@@ -128,12 +128,22 @@
       refresh_el();
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
-        setInterval(refresh_el, $s.refreshMillis);
+        this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
       }
     },
     update: function(time){
       $(this).data('timeago', { datetime: $t.parse(time) });
       refresh.apply(this);
+    },
+    updateFromDOM: function(){
+      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
+      refresh.apply(this);
+    },
+    dispose: function () {
+      if (this._timeagoInterval) {
+        window.clearInterval(this._timeagoInterval);
+        this._timeagoInterval = null;
+      }
     }
   };
 
@@ -151,8 +161,12 @@
 
   function refresh() {
     var data = prepareData(this);
+    var $s = $t.settings;
+
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime, ($(this).attr('lang')) ? $(this).attr('lang') : $t.settings.lang));
+      if ( $s.cutoff == 0 || distance(data.datetime) < $s.cutoff) {
+        $(this).text(inWords(data.datetime));
+      }
     }
     return this;
   }
@@ -171,8 +185,8 @@
     return element.data("timeago");
   }
 
-  function inWords(date, lang) {
-    return $t.inWords(distance(date), lang);
+  function inWords(date) {
+    return $t.inWords(distance(date));
   }
 
   function distance(date) {
