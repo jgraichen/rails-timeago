@@ -5,14 +5,16 @@ puts `mkdir ./tmp`
 puts `git clone https://github.com/rmm5t/jquery-timeago.git ./tmp`
 
 puts "Patch jquery timeago..."
-puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.1.patch`
-puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.2.patch`
+puts `cd ./tmp && patch -p1 < ../scripts/jquery.timeago.js.patch`
 
 print 'Patch locale files ... '
 `rm ./tmp/locales/jquery.timeago.en.js`
+
+is_mac = RUBY_PLATFORM.downcase.include?("darwin")
+
 Dir["./tmp/locales/*.js"].each do |file|
   if file =~ /jquery\.timeago\.(.+)\.js$/
-    `sed -i "s/timeago.settings.strings/timeago.settings.strings[\\"#{$1}\\"]/" #{file}`
+    `sed -i#{(is_mac)? " ''": nil} "s/timeago.settings.strings/timeago.settings.strings[\\"#{$1}\\"]/" #{file}`
     print "#{$1} "
   end
 end
@@ -30,4 +32,4 @@ Dir["./vendor/assets/javascripts/locales/*.js"].each do |file|
 end
 
 puts "Clean up..."
-puts `rm ./tmp -rf`
+puts `rm -rf ./tmp`

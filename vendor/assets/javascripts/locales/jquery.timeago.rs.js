@@ -1,4 +1,4 @@
-// Croatian
+// Serbian
 (function () {
     var numpf;
 
@@ -14,18 +14,18 @@
         }
     };
 
-    jQuery.timeago.settings.strings["hr"] = {
-        prefixAgo: "prije",
+    jQuery.timeago.settings.strings["rs"] = {
+        prefixAgo: "pre",
         prefixFromNow: "za",
         suffixAgo: null,
         suffixFromNow: null,
-        second: "sekundu",
+        second: "sekund",
         seconds: function (value) {
-            return numpf(value, "%d sekundu", "%d sekunde", "%d sekundi");
+            return numpf(value, "%d sekund", "%d sekunde", "%d sekundi");
         },
-        minute: "oko minutu",
+        minute: "oko minut",
         minutes: function (value) {
-            return numpf(value, "%d minutu", "%d minute", "%d minuta");
+            return numpf(value, "%d minut", "%d minuta", "%d minuta");
         },
         hour: "oko jedan sat",
         hours: function (value) {
@@ -35,11 +35,11 @@
         days: function (value) {
             return numpf(value, "%d dan", "%d dana", "%d dana");
         },
-        month: "mjesec dana",
+        month: "mesec dana",
         months: function (value) {
-            return numpf(value, "%d mjesec", "%d mjeseca", "%d mjeseci");
+            return numpf(value, "%d mesec", "%d meseca", "%d meseci");
         },
-        year: "prije godinu dana",
+        year: "pre godinu dana",
         years: function (value) {
             return numpf(value, "%d godinu", "%d godine", "%d godina");
         },
