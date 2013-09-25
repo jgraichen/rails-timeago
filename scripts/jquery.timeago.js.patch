@@ -1,5 +1,5 @@
---- jquery.timeago.js.orig	2013-09-25 14:18:55.000000000 +0300
-+++ jquery.timeago.js	2013-09-25 14:21:51.000000000 +0300
+--- a/jquery.timeago.js
++++ b/jquery.timeago.js
 @@ -42,7 +42,8 @@
        allowFuture: false,
        localeTitle: false,
@@ -25,7 +25,7 @@
        var suffix = $l.suffixAgo;
        if (this.settings.allowFuture) {
 @@ -165,7 +166,7 @@
- 
+
      if (!isNaN(data.datetime)) {
        if ( $s.cutoff == 0 || distance(data.datetime) < $s.cutoff) {
 -        $(this).text(inWords(data.datetime));
@@ -36,11 +36,11 @@
 @@ -185,8 +186,8 @@
      return element.data("timeago");
    }
- 
+
 -  function inWords(date) {
 -    return $t.inWords(distance(date));
 +  function inWords(date, lang) {
 +    return $t.inWords(distance(date), lang);
    }
- 
+
    function distance(date) {
