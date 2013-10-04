@@ -27,7 +27,7 @@ puts `cp ./tmp/locales/*.js ./vendor/assets/javascripts/locales`
 puts "Generate rails-timeago-all.js..."
 `echo "// Rails timeago bootstrap with all locales" > ./lib/assets/javascripts/rails-timeago-all.js`
 `echo "//= require rails-timeago" >> ./lib/assets/javascripts/rails-timeago-all.js`
-Dir["./vendor/assets/javascripts/locales/*.js"].each do |file|
+Dir["./vendor/assets/javascripts/locales/*.js"].sort.each do |file|
   `echo "//= require locales/#{File.basename(file)}" >> ./lib/assets/javascripts/rails-timeago-all.js`
 end
 
