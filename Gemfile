@@ -6,3 +6,5 @@ gemspec
 group :development do
   gem "rake"
 end
+
+gem 'rubysl', platform: :rbx
