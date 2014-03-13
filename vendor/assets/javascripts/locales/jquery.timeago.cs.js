@@ -1,5 +1,5 @@
 // Czech
-jQuery.timeago.settings.strings["cz"] = {
+jQuery.timeago.settings.strings["cs"] = {
   prefixAgo: "před",
   prefixFromNow: null,
   suffixAgo: null,

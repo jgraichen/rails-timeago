@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.3.1
+ * @version 1.4.0
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -39,31 +39,40 @@
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
+      allowPast: true,
       allowFuture: false,
       localeTitle: false,
       cutoff: 0,
       lang: "en",
-      strings: { "en": {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
-        seconds: "less than a minute",
-        minute: "about a minute",
-        minutes: "%d minutes",
-        hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
-        wordSeparator: " ",
-        numbers: []
-      }}
+      strings: {
+        "en": {
+          prefixAgo: null,
+          prefixFromNow: null,
+          suffixAgo: "ago",
+          suffixFromNow: "from now",
+          inPast: 'any moment now',
+          seconds: "less than a minute",
+          minute: "about a minute",
+          minutes: "%d minutes",
+          hour: "about an hour",
+          hours: "about %d hours",
+          day: "a day",
+          days: "%d days",
+          month: "about a month",
+          months: "%d months",
+          year: "about a year",
+          years: "%d years",
+          wordSeparator: " ",
+          numbers: []
+        }
+      }
     },
+
     inWords: function(distanceMillis, lang) {
+      if(!this.settings.allowPast && ! this.settings.allowFuture) {
+          throw 'timeago allowPast and allowFuture settings can not both be set to false.';
+      }
+
       var $l = this.settings.strings[lang] || this.settings.strings[this.settings.lang] || this.settings.strings["en"];
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -72,6 +81,10 @@
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
         }
+      }
+
+      if(!this.settings.allowPast && distanceMillis >= 0) {
+        return this.settings.strings.inPast;
       }
 
       var seconds = Math.abs(distanceMillis) / 1000;
@@ -102,6 +115,7 @@
       if ($l.wordSeparator === undefined) { separator = " "; }
       return $.trim([prefix, words, suffix].join(separator));
     },
+
     parse: function(iso8601) {
       var s = $.trim(iso8601);
       s = s.replace(/\.\d+/,""); // remove milliseconds
