@@ -22,6 +22,7 @@ puts
 
 puts "Copying asset files..."
 puts `cp ./tmp/jquery.timeago.js ./vendor/assets/javascripts/`
+puts `rm ./vendor/assets/javascripts/locales/*`
 puts `cp ./tmp/locales/*.js ./vendor/assets/javascripts/locales`
 
 puts "Generate rails-timeago-all.js..."
