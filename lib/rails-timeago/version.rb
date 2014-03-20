@@ -2,7 +2,7 @@ module Rails
   module Timeago
     module VERSION
       MAJOR = 2
-      MINOR = 9
+      MINOR = 10
       PATCH = 0
       STAGE = nil
 
