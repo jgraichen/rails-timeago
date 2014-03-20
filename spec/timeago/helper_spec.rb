@@ -75,6 +75,21 @@ describe Rails::Timeago::Helper do
         should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
     end
 
+    it 'should have data-time-ago attribute for times before given limit if limit is in the future' do
+      @stub.timeago_tag(5.days.from_now, :limit => 6.days.from_now).
+        should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+    end
+
+    it 'should have not data-time-ago attribute for times in the past if limit is in the future' do
+      @stub.timeago_tag(1.days.ago, :limit => 5.days.from_now).
+        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+    end
+
+    it 'should have not data-time-ago attribute for times after given limit if limit is in the future' do
+      @stub.timeago_tag(6.days.from_now, :limit => 5.days.from_now).
+        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+    end
+
     it 'should have data-time-ago attribute for times before limit if forced' do
       @stub.timeago_tag(6.days.ago, :force => true).
         should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
