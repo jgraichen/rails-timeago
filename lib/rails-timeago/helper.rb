@@ -1,3 +1,5 @@
+require 'active_support/time'
+
 module Rails
   module Timeago
     module Helper
@@ -45,7 +47,15 @@ module Rails
         end
         time_options[:limit] = time_options[:limit].call if time_options[:limit].is_a?(Proc)
 
-        if time_options[:force] or time_options[:limit].nil? or time_options[:limit] < time
+        time_range = unless time_options[:limit].nil?
+                       now = Time.zone.now
+                       limit = time_options[:limit]
+                       limit < now ? limit...now : now...limit
+                     else
+                       nil
+                     end
+
+        if time_options[:force] or time_range.nil? or time_range.cover?(time)
           html_options.merge!('data-time-ago' => time.iso8601)
         end
         time_tag time, timeago_tag_content(time, time_options), html_options

@@ -6,3 +6,6 @@ require File.dirname(__FILE__) + '/support/stub.rb'
 RSpec.configure do |config|
   config.mock_with :rspec
 end
+
+# Use UTC timezone for the duration of the tests
+Time.zone = 'UTC'
