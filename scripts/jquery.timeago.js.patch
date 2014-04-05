@@ -58,6 +58,15 @@
        var prefix = $l.prefixAgo;
        var suffix = $l.suffixAgo;
        if (this.settings.allowFuture) {
+@@ -84,7 +84,7 @@
+       }
+
+       if(!this.settings.allowPast && distanceMillis >= 0) {
+-        return this.settings.strings.inPast;
++        return this.settings.strings[lang].inPast;
+       }
+
+       var seconds = Math.abs(distanceMillis) / 1000;
 @@ -180,7 +183,7 @@
 
      if (!isNaN(data.datetime)) {

@@ -84,7 +84,7 @@
       }
 
       if(!this.settings.allowPast && distanceMillis >= 0) {
-        return this.settings.strings.inPast;
+        return this.settings.strings[lang].inPast;
       }
 
       var seconds = Math.abs(distanceMillis) / 1000;
