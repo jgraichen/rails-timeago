@@ -122,4 +122,4 @@ jQuery.timeago.settings.strings["en"] = {
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
-Copyright (c) 2012, Jan Graichen
+Copyright (c) 2014, Jan Graichen
