@@ -1,5 +1,5 @@
 // Turkish
-jQuery.extend($.timeago.settings.strings["tr"], {
+jQuery.timeago.settings.strings["tr"] = {
    suffixAgo: 'önce',
    suffixFromNow: null,
    seconds: '1 dakikadan',
@@ -13,4 +13,4 @@ jQuery.extend($.timeago.settings.strings["tr"], {
    months: '%d ay',
    year: '1 yıl',
    years: '%d yıl'
-});
+};
