@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.2
+
+* Update jquery-timeago from upstream (1.4.1)
+
 ## 2.10.1
 
 * Fix localization bug with inPast (#27)
