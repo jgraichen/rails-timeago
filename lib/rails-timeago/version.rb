@@ -2,8 +2,8 @@ module Rails
   module Timeago
     module VERSION
       MAJOR = 2
-      MINOR = 11
-      PATCH = 1
+      MINOR = 12
+      PATCH = 0
       STAGE = nil
 
       def self.to_s
