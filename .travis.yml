@@ -1,10 +1,8 @@
 language: ruby
 rvm:
-  - 2.1
-  - rbx-2
+  - '2.2'
+  - '2.1'
+  - 'rbx-2'
   - '2.0'
-  - jruby
-  - 1.9.3
-matrix:
-  allow_failures:
-  - rvm: jruby
+  - 'jruby'
+  - '1.9.3'
