@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.13.0
+
+* Update jquery-timeago and locales from upstream
+
+## 2.12.0
+
+* Update jquery-timeago and locales from upstream
+* Apply timeago to items added with ajax requests (#31)
+
 ## 2.11.1
 
 * Update jquery-timeago and locales from upstream
