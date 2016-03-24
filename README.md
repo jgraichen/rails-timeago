@@ -1,9 +1,9 @@
 # rails-timeago
 
 [![Gem Version](https://badge.fury.io/rb/rails-timeago.svg)](http://badge.fury.io/rb/rails-timeago)
-[![Build Status](https://travis-ci.org/jgraichen/rails-timeago.png?branch=master)](https://travis-ci.org/jgraichen/rails-timeago)
-[![Code Climate](https://codeclimate.com/github/jgraichen/rails-timeago.png)](https://codeclimate.com/github/jgraichen/rails-timeago)
-[![Dependency Status](https://gemnasium.com/jgraichen/rails-timeago.png)](https://gemnasium.com/jgraichen/rails-timeago)
+[![Build Status](https://travis-ci.org/jgraichen/rails-timeago.svg?branch=master)](https://travis-ci.org/jgraichen/rails-timeago)
+[![Code Climate](https://codeclimate.com/github/jgraichen/rails-timeago.svg)](https://codeclimate.com/github/jgraichen/rails-timeago)
+[![Dependency Status](https://gemnasium.com/jgraichen/rails-timeago.svg)](https://gemnasium.com/jgraichen/rails-timeago)
 
 **rails-timeago** provides a timeago_tag helper to create time tags usable for
 [jQuery Timeago](https://github.com/rmm5t/jquery-timeago) plugin.
