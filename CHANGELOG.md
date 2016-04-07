@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.1
+
+* Update jquery-timeago to support rails5( Turbolinks 5 )
+
 ## 2.13.0
 
 * Update jquery-timeago and locales from upstream
