@@ -5,9 +5,10 @@ module Rails
       MINOR = 13
       PATCH = 1
       STAGE = nil
+      STRING = [MAJOR, MINOR, PATCH, STAGE].reject(&:nil?).join('.').freeze
 
       def self.to_s
-        [MAJOR, MINOR, PATCH, STAGE].reject(&:nil?).join '.'
+        STRING
       end
     end
   end
