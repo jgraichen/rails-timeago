@@ -1,9 +1,9 @@
---- a/jquery.timeago.js	2014-03-13 12:39:52.449750076 +0100
-+++ b/jquery.timeago.js	2014-03-13 12:41:56.958243281 +0100
-@@ -43,34 +43,37 @@
-       allowFuture: false,
+--- a/jquery.timeago.js	2016-06-18 12:07:13.086570721 +0200
++++ b/jquery.timeago.js	2016-06-18 12:10:24.195886887 +0200
+@@ -46,34 +46,37 @@
        localeTitle: false,
        cutoff: 0,
+       autoDispose: true,
 +      lang: "en",
        strings: {
 -        prefixAgo: null,
@@ -24,7 +24,7 @@
 -        years: "%d years",
 -        wordSeparator: " ",
 -        numbers: []
-+        "en": {
++        en: {
 +          prefixAgo: null,
 +          prefixFromNow: null,
 +          suffixAgo: "ago",
@@ -49,7 +49,7 @@
 
 -    inWords: function(distanceMillis) {
 +    inWords: function(distanceMillis, lang) {
-       if(!this.settings.allowPast && ! this.settings.allowFuture) {
+       if (!this.settings.allowPast && ! this.settings.allowFuture) {
            throw 'timeago allowPast and allowFuture settings can not both be set to false.';
        }
 
@@ -58,16 +58,16 @@
        var prefix = $l.prefixAgo;
        var suffix = $l.suffixAgo;
        if (this.settings.allowFuture) {
-@@ -84,7 +84,7 @@
+@@ -84,7 +87,7 @@
        }
 
-       if(!this.settings.allowPast && distanceMillis >= 0) {
+       if (!this.settings.allowPast && distanceMillis >= 0) {
 -        return this.settings.strings.inPast;
-+        return this.settings.strings[lang].inPast;
++        return $l.inPast;
        }
 
        var seconds = Math.abs(distanceMillis) / 1000;
-@@ -180,7 +183,7 @@
+@@ -191,7 +194,7 @@
 
      if (!isNaN(data.datetime)) {
        if ( $s.cutoff == 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
@@ -76,7 +76,7 @@
        }
      }
      return this;
-@@ -200,8 +203,8 @@
+@@ -211,8 +214,8 @@
      return element.data("timeago");
    }
 
