@@ -1,5 +1,4 @@
-﻿
-// Persian
+﻿// Persian
 // Use DIR attribute for RTL text in Persian Language for ABBR tag .
 // By MB.seifollahi@gmail.com
 jQuery.timeago.settings.strings["fa"] = {
@@ -18,5 +17,6 @@ jQuery.timeago.settings.strings["fa"] = {
   months: "%d ماه",
   year: "حدود یک سال",
   years: "%d سال",
-  wordSeparator: " "
+  wordSeparator: " ",
+  numbers: ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
 };
