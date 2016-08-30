@@ -2,7 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Rails::Timeago::Helper do
   before { @stub = TimeagoStub.new }
-  before  { Rails::Timeago.reset_default_options }
   let(:time) { Time.now }
 
   context "#timeago_tag" do
