@@ -18,5 +18,4 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "activesupport", ">= 3.1"
   gem.add_dependency "actionpack", ">= 3.1"
-  gem.add_development_dependency "rspec"
 end

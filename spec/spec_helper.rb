@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext'
+
 require File.dirname(__FILE__) + '/../lib/rails-timeago.rb'
 require File.dirname(__FILE__) + '/support/stub.rb'
 

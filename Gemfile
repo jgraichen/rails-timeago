@@ -7,6 +7,10 @@ group :development do
   gem "rake"
 end
 
+group :test do
+  gem 'rspec', '~> 3.5'
+end
+
 gem 'rack', '~> 1.0' # Otherwise requires Ruby > 2.2.
 
 gem 'rubysl', platform: :rbx

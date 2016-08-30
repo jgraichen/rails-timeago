@@ -1,163 +1,209 @@
+require 'spec_helper'
 
-require File.dirname(__FILE__) + '/../spec_helper'
-
-describe Rails::Timeago::Helper do
+RSpec.describe Rails::Timeago::Helper do
   before { @stub = TimeagoStub.new }
-  after  { Rails::Timeago.reset_default_options }
+  before  { Rails::Timeago.reset_default_options }
   let(:time) { Time.now }
 
   context "#timeago_tag" do
-    it 'should create a time tag' do
-      @stub.timeago_tag(time).should =~ /<time.*>.*<\/time>/
+    let(:kwargs) { {} }
+    subject { @stub.timeago_tag(time, **kwargs) }
+
+    it 'creates a time tag' do
+      is_expected.to match /<time.*>.*<\/time>/
     end
 
-    it 'should have title attribute' do
-      @stub.timeago_tag(time).should =~ /<time.*title=".*".*>.*<\/time>/
+    it 'has a title attribute' do
+      is_expected.to match /<time.*title=".*".*>.*<\/time>/
     end
 
-    it 'should have human readable datetime as title attribute' do
-      @stub.timeago_tag(time).should include("title=\"#{I18n.l time}\"")
+    it 'has a human readable datetime as title attribute' do
+      is_expected.to include "title=\"#{I18n.l time}\""
     end
 
-    it 'should have human readable datetime as title attribute with given format' do
-      @stub.timeago_tag(time, :format => :short).should include("title=\"#{I18n.l time, :format => :short}\"")
+    it 'has a data-time-ago attribute' do
+      is_expected.to match /<time.*data-time-ago=".*".*>.*<\/time>/
     end
 
-    it 'should have human readable datetime as title attribute with given format' do
-      @stub.timeago_tag(time, :format => proc { |time, options| :long }).should include("title=\"#{I18n.l time, :format => :long}\"")
+    context 'with nil as timestamp' do
+      let(:time) { nil }
+      it 'returns default string' do
+        is_expected.to eq '-'
+      end
     end
 
-    it 'should have human readable datetime as title attribute with global format' do
-      Rails::Timeago.default_options :format => :short
-      @stub.timeago_tag(time).should include("title=\"#{I18n.l time, :format => :short}\"")
+    describe 'format parameter' do
+      let(:kwargs) { {format: format} }
+
+      context 'with symbolic format' do
+        let(:format) { :short }
+        it { is_expected.to include "title=\"#{I18n.l time, format: :short}\"" }
+      end
+
+      context 'with proc format' do
+        let(:format) { proc {|time, options| :long } }
+        it { is_expected.to include "title=\"#{I18n.l time, format: :long}\"" }
+      end
     end
 
-    it 'should have no title attribute if title is set to false globally' do
-      Rails::Timeago.default_options :title => false
-      @stub.timeago_tag(time).should_not =~ /<time.*title=".*".*>.*<\/time>/
+    describe 'format global configuration' do
+      before { Rails::Timeago.default_options format: format }
+
+      context 'with symbolic format' do
+        let(:format) { :short }
+        it { is_expected.to include "title=\"#{I18n.l time, format: :short}\"" }
+      end
+
+      context 'with proc format' do
+        let(:format) { proc {|time, options| :long } }
+        it { is_expected.to include "title=\"#{I18n.l time, format: :long}\"" }
+      end
     end
 
-    it 'should have no title attribute if title is set to nil globally' do
-      Rails::Timeago.default_options :title => nil
-      @stub.timeago_tag(time).should_not =~ /<time.*title=".*".*>.*<\/time>/
+    describe 'title parameter' do
+      let(:kwargs) { {title: title} }
+
+      context 'with title disable' do
+        let(:title) { false }
+        it { is_expected.to_not match /<time.*title=".*".*>.*<\/time>/ }
+      end
+
+      context 'with title set to nil' do
+        let(:title) { nil }
+        it { is_expected.to_not match /<time.*title=".*".*>.*<\/time>/ }
+      end
+
+      context 'with title set to proc' do
+        let(:title) { proc {|_, o| o[:format] } }
+        let(:kwargs) { super().merge format: :short }
+        it { is_expected.to match /<time.*title="short".*>.*<\/time>/ }
+      end
     end
 
-    it 'should have title attribute with proc value globally' do
-      Rails::Timeago.default_options :title => proc { |time, options| options[:format] }
-      @stub.timeago_tag(time, :format => :short).should =~ /<time.*title="short".*>.*<\/time>/
+    describe 'title global configuration' do
+      before { Rails::Timeago.default_options title: title }
+
+      context 'with title disabled' do
+        let(:title) { false }
+        it { is_expected.to_not match /<time.*title=".*".*>.*<\/time>/ }
+      end
+
+      context 'with title set to nil' do
+        let(:title) { nil }
+        it { is_expected.to_not match /<time.*title=".*".*>.*<\/time>/ }
+      end
+
+      context 'with title set to proc' do
+        let(:title) { proc {|_, o| o[:format] } }
+        let(:kwargs) { {format: :short} }
+        it { is_expected.to match /<time.*title="short".*>.*<\/time>/ }
+      end
     end
 
-    it 'should have title attribute with proc value locally' do
-      @stub.timeago_tag(time, :format => :long,
-        :title => proc { |time, options| options[:format] }).should =~ /<time.*title="long".*>.*<\/time>/
+    describe 'limit' do
+      let(:time) { 5.days.ago }
+
+      it 'should not have data-time-ago attribute for times before limit' do
+        is_expected.to_not match /<time.*data-time-ago=".*".*>.*<\/time>/
+      end
+
+      context 'with given limit' do
+        let(:kwargs) { {limit: limit} }
+
+        context 'in past' do
+          let(:limit) { 6.days.ago }
+
+          context 'and past timestamp after limit' do
+            let(:time) { 5.days.ago }
+            it { is_expected.to match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+          end
+
+          context 'and past timestamp before limit' do
+            let(:time) { 8.days.ago }
+            it { is_expected.to_not match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+
+            context 'when forced' do
+              let(:kwargs) { super().merge force: true }
+              it { is_expected.to match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+            end
+          end
+        end
+
+        context 'in future' do
+          let(:limit) { 5.days.from_now }
+
+          context 'and future timestamp after limit' do
+            let(:time) { 7.days.from_now }
+            it { is_expected.to_not match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+          end
+
+          context 'and future timestamp before limit' do
+            let(:time) { 3.days.from_now }
+            it { is_expected.to match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+          end
+
+          context 'and past timestamp' do
+            let(:time) { 3.days.ago }
+            it { is_expected.to_not match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+          end
+        end
+      end
     end
 
-    it 'should have format attribute with proc value locally' do
-      @stub.timeago_tag(time,
-        :format => proc { |time, options| :long }).should include(">#{I18n.l time.to_date, :format => :long}<")
+    describe 'content' do
+      let(:time) { 3.days.ago }
+
+      it 'has localized date as content' do
+        is_expected.to include ">#{I18n.l time.to_date}<"
+      end
+
+      context 'with :format option' do
+        let(:kwargs) { {format: :short} }
+
+        it 'has correctly formatted date as content' do
+          is_expected.to include ">#{I18n.l time.to_date, format: :short}<"
+        end
+      end
+
+      context 'with :date_only set to false' do
+        let(:kwargs) { {date_only: false} }
+
+        it 'has localized time as content' do
+          is_expected.to include ">#{I18n.l time}<"
+        end
+      end
     end
 
-    it 'should have data-time-ago attribute' do
-      @stub.timeago_tag(time).should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
+    describe ':nojs set to true' do
+      let(:time) { 3.days.ago }
+      let(:kwargs) { {nojs: true} }
+
+      it 'has time in words as content' do
+        is_expected.to match /<time.*>%time_ago_in_words%<\/time>/
+      end
+
+      context 'with limit' do
+        let(:kwargs) { super().merge limit: 2.days.ago }
+        it { is_expected.to_not match /<time.*data-time-ago=".*".*>.*<\/time>/ }
+        it { is_expected.to include ">#{I18n.l time.to_date}<" }
+      end
     end
 
-    it 'should not have data-time-ago attribute for times before limit' do
-      @stub.timeago_tag(5.days.ago).should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
+    context 'with HTML options' do
+      let(:kwargs) { {myattr: 'abc'} }
 
-    it 'should have data-time-ago attribute for times after given limit' do
-      @stub.timeago_tag(5.days.ago, :limit => 6.days.ago).
-        should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have not data-time-ago attribute for times before given limit' do
-      @stub.timeago_tag(6.days.ago, :limit => 5.days.ago).
-        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have data-time-ago attribute for times before given limit if limit is in the future' do
-      @stub.timeago_tag(5.days.from_now, :limit => 6.days.from_now).
-        should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have not data-time-ago attribute for times in the past if limit is in the future' do
-      @stub.timeago_tag(1.days.ago, :limit => 5.days.from_now).
-        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have not data-time-ago attribute for times after given limit if limit is in the future' do
-      @stub.timeago_tag(6.days.from_now, :limit => 5.days.from_now).
-        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have data-time-ago attribute for times before limit if forced' do
-      @stub.timeago_tag(6.days.ago, :force => true).
-        should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it 'should have localized date as content' do
-      time = 3.days.ago
-      @stub.timeago_tag(time).should include(">#{I18n.l time.to_date}<")
-    end
-
-    it 'should have localized time as content if date_only is false' do
-      time = 3.days.ago
-      @stub.timeago_tag(time, :date_only => false).should include(">#{I18n.l time}<")
-    end
-
-    it 'should have time ago in words as content if nojs is true' do
-      time = 3.days.ago
-      @stub.timeago_tag(time, :nojs => true).should =~ /<time.*>%time_ago_in_words%<\/time>/
-    end
-
-    it 'should pass format option to localize method' do
-      time = 3.days.ago
-      @stub.timeago_tag(time, :format => :short).
-        should include(">#{I18n.l time.to_date, :format => :short}<")
-    end
-
-    it 'should pass html option to tag helper' do
-      @stub.timeago_tag(time, :myattr => 'abc').should =~ /<time.*myattr="abc".*>.*<\/time>/
-    end
-
-    it "should allow to set global options" do
-      Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
-      time = 7.days.ago
-
-      @stub.timeago_tag(time).
-        should include(">#{I18n.l time.to_date, :format => :short}<")
-      @stub.timeago_tag(time).
-        should =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it "should allow to override global options" do
-      Rails::Timeago.default_options :format => :short, :limit => proc { 8.days.ago }
-      time = 7.days.ago
-
-      @stub.timeago_tag(time, :format => :long).
-        should include(">#{I18n.l time.to_date, :format => :long}<")
-      @stub.timeago_tag(time, :limit => 4.days.ago).
-        should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-    end
-
-    it "should return default string if time is nil" do
-      @stub.timeago_tag(nil).should == '-'
-    end
-
-    it 'should respect limit option also in nojs tag content' do
-      time = 6.days.ago
-
-      @stub.timeago_tag(time, :nojs => true, :limit => 5.days.ago).
-          should_not =~ /<time.*data-time-ago=".*".*>.*<\/time>/
-      @stub.timeago_tag(time, :nojs => true, :limit => 5.days.ago).
-          should include(">#{I18n.l time.to_date}<")
+      it 'passes them to #tag_helper' do
+        is_expected.to match /<time.*myattr="abc".*>.*<\/time>/
+      end
     end
   end
 
   context "#timeago_script_tag" do
+    subject { @stub.timeago_script_tag }
+
     it "should return a javascript snippet to set jQuery timeago locale" do
       I18n.locale = "en"
-      @stub.timeago_script_tag.should == '<script>jQuery.timeago.settings.lang="en";</script>'
+      is_expected.to eq '<script>jQuery.timeago.settings.lang="en";</script>'
     end
   end
 end
