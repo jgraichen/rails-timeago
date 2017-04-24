@@ -2,7 +2,7 @@ module Rails
   module Timeago
     module VERSION
       MAJOR = 2
-      MINOR = 15
+      MINOR = 16
       PATCH = 0
       STAGE = nil
       STRING = [MAJOR, MINOR, PATCH, STAGE].reject(&:nil?).join('.').freeze
