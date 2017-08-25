@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class TimeagoStub
   include Rails::Timeago::Helper
 
-  I18n.backend.store_translations :en, :hello => 'World'
+  I18n.backend.store_translations :en, hello: 'World'
 
   def time_tag(time, content, options = {})
-    options = options.map { |k,v| "#{k}=\"#{v}\""}
+    options = options.map {|k, v| "#{k}=\"#{v}\"" }
     "<time datetime=\"#{time.iso8601}\" #{options.join ' '}>#{content}</time>"
   end
 
-  def time_ago_in_words(time)
-    "%time_ago_in_words%"
+  def time_ago_in_words(_time)
+    '%time_ago_in_words%'
   end
 
   def javascript_tag(source)
@@ -21,7 +23,7 @@ class Application
   attr_accessor :render
 
   ASSET_BASE = Pathname.new(File.expand_path('../../..', __FILE__))
-  ASSET_DIRECTORIES = %w(lib/assets vendor/assets spec/support/assets)
+  ASSET_DIRECTORIES = %w[lib/assets vendor/assets spec/support/assets].freeze
 
   def initialize
     @helper = TimeagoStub.new
@@ -30,7 +32,7 @@ class Application
   def call(env)
     @request = ::Rack::Request.new(env)
 
-    if @request.path =~ %r{^/assets/}
+    if @request.path.match?(%r{^/assets/})
       call_asset
     else
       [200, {'Content-Type' => 'text/html'}, [call_render]]
@@ -39,9 +41,9 @@ class Application
 
   def call_render
     body = if @render
-      @render.call(@helper, @request)
-    else
-      '<noscript></noscript>'
+             @render.call(@helper, @request)
+           else
+             '<noscript></noscript>'
     end
 
     <<-HTML
