@@ -32,7 +32,7 @@ class Application
   def call(env)
     @request = ::Rack::Request.new(env)
 
-    if @request.path.match?(%r{^/assets/})
+    if @request.path =~ %r{^/assets/}
       call_asset
     else
       [200, {'Content-Type' => 'text/html'}, [call_render]]
@@ -44,7 +44,7 @@ class Application
              @render.call(@helper, @request)
            else
              '<noscript></noscript>'
-    end
+           end
 
     <<-HTML
       <html>
