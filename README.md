@@ -33,17 +33,39 @@ This will also convert all matching time tags on page load.
 Use the following to also include all available locale files:
 
     //= require rails-timeago-all
+    
+Within your `application.rb` file:
+
+```ruby
+class Application < Rails::Application
+    Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true  # adding this line
+end
+```
+
+You can tweak the above options to your liking based on the items in the 'Available Options' section below.
+
 
 ## Usage
 
-Use the timeago_tag helper like any other regular tag helper:
+Use the timeago_tag helper like any other regular tag helper.  If you already have the settings the way you want them in application.rb, simply start using the timeago_tag helper in your view:
+
+```erb
+<%= timeago_tag Time.zone.now %>
+```
+
+Another example:  If you're creating a blog with a Post model, and want to show when your post was added. Something similar to:
+```erb
+<%= timeago_tag post.created_at %>
+```
+
+If you'd like to override your current global settings while using the helper in your view, you can directly insert your options:
 
 ```erb
 <%= timeago_tag Time.zone.now, :nojs => true, :limit => 10.days.ago %>
 ```
 
 
-### Available options:
+### Available Options:
 
 **nojs**
 Add time ago in words as time tag content instead of absolute time.
@@ -72,15 +94,6 @@ String that will be returned if time is `nil`.
 **title**
 A string or block that will be used to create a title attribute for timeago tags. It set to nil or false no title attribute will be set.
 (default: `proc { |time, options| I18n.l time, :format => options[:format] }`)
-
-All other options will be given as options to the time tag helper.
-The above options can be assigned globally as defaults using
-
-```ruby
-Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
-```
-
-A global limit should always be given as a block that will be evaluated each time the rails `timeago_tag` helper is called. That avoids the limit becoming smaller the longer the application runs.
 
 ## I18n
 
