@@ -10,8 +10,6 @@ before_install:
 jobs:
   include:
   - stage: Release
-    rvm: 2.6.0
-    env: []
     script: skip
     install: skip
     deploy:
