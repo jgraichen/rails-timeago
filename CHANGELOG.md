@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.18.0
+
+* Update jquery-timeago and locales from upstream
+
 ## 2.17.1
 
 * Maintenance release without code changes
