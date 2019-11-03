@@ -7,16 +7,3 @@ rvm:
 - 2.3.8
 before_install:
 - gem install bundler
-jobs:
-  include:
-  - stage: Release
-    script: skip
-    install: skip
-    deploy:
-      provider: rubygems
-      api_key:
-        secure: XYbT9MB6DNzKu95OqrA5qIV2rD1L6RLpfCb9s/3YnhKY8tTP1NcitvmXLHtNLAoHldYrb9AmSfNh5wFgFnfoqFkpz4B94SBrkQtGZ9wzIj4otxMgntGsrGd6qLBfnXGG8rctngeJlo0eVKkE/3fJtiXb5mEx72fvxd2+/fYfubY=
-      gem: rails-timeago
-      on:
-        tags: true
-        repo: jgraichen/rails-timeago
