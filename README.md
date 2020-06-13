@@ -1,8 +1,7 @@
 # rails-timeago
 
-[![Gem Version](https://badge.fury.io/rb/rails-timeago.svg)](http://badge.fury.io/rb/rails-timeago)
-[![Build Status](https://travis-ci.org/jgraichen/rails-timeago.svg?branch=master)](https://travis-ci.org/jgraichen/rails-timeago)
-[![Code Climate](https://codeclimate.com/github/jgraichen/rails-timeago.svg)](https://codeclimate.com/github/jgraichen/rails-timeago)
+[![Gem Version](https://img.shields.io/gem/v/rails-timeago?logo=ruby)](https://rubygems.org/gems/rails-timeago)
+[![Build Status](https://img.shields.io/travis/jgraichen/rails-timeago/master?logo=travis)](https://travis-ci.org/jgraichen/rails-timeago)
 
 **rails-timeago** provides a timeago_tag helper to create time tags usable for
 [jQuery Timeago](https://github.com/rmm5t/jquery-timeago) plugin.
@@ -31,6 +30,12 @@ This will also convert all matching time tags on page load.
 
 Use the following to also include all available locale files:
 
+    //= require rails-timeago-all
+
+If using a recent Rails with `rails-ujs`, jQuery might not be present anymore. You need to add `jquery-rails` to your `Gemfile` and load it, e.g.:
+
+    //= require jquery
+    //= require rails-timeago
     //= require rails-timeago-all
 
 ## Usage
