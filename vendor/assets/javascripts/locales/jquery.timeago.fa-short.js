@@ -7,7 +7,7 @@
     factory(jQuery);
   }
 }(function (jQuery) {
-  // persion shortened
+  // persian shortened
   jQuery.timeago.settings.strings["fa-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
