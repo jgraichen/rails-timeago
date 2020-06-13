@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.19.0
+
+* Update jquery-timeago and locales from upstream
+* Reinitialize on ajaxSuccess event too (#34)
+
 ## 2.18.0
 
 * Update jquery-timeago and locales from upstream
@@ -19,7 +24,7 @@
 ## 2.15.0
 
 * Update jquery-timeago and locales from upstream
-* Remove an use of derpecated "ready" event (compatible with jQuery 3.0) (#40)
+* Remove an use of deprecated "ready" event (compatible with jQuery 3.0) (#40)
 
 ## 2.14.0
 
