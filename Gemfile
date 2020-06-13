@@ -7,6 +7,7 @@ gemspec
 
 group :development do
   gem 'rake'
+  gem 'rake-release'
 end
 
 group :test do

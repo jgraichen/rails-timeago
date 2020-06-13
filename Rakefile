@@ -1,7 +1,7 @@
 #!/usr/bin/env rake
 # frozen_string_literal: true
 
-require 'bundler/gem_tasks'
+require 'rake/release'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
