@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.19.1
+
+* Maintenance release reducing gem archive size
+
 ## 2.19.0
 
 * Update jquery-timeago and locales from upstream
