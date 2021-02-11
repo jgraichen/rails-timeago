@@ -1,53 +1,55 @@
 AllCops:
   Include:
     - '**/*.rb'
-  TargetRubyVersion: 2.1
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 2.4
 
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*_spec.rb'
+Layout/CaseIndentation:
+  EnforcedStyle: end
+  IndentOneStep: true
+  SupportedStyles:
+    - case
+    - end
 
-Metrics/LineLength:
-  Exclude:
-    - 'spec/**/*_spec.rb'
-
-Style/AlignParameters:
+Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
-Style/RaiseArgs:
-  EnforcedStyle: compact
-
-Style/Documentation:
-  Enabled: false
-
-Style/SpaceInsideBlockBraces:
+Layout/SpaceInsideBlockBraces:
   EnforcedStyle: space
   EnforcedStyleForEmptyBraces: no_space
   SpaceBeforeBlockParameters: false
 
-Style/SignalException:
-  EnforcedStyle: only_raise
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
-Style/CaseIndentation:
-  EnforcedStyle: end
-  SupportedStyles:
-    - case
-    - end
-  IndentOneStep: true
+
+Metrics/BlockLength:
+  Exclude:
+    - Rakefile
+    - spec/**/*_spec.rb
+
+Metrics/LineLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
+
+Naming/FileName:
+  Exclude:
+    - lib/rails-timeago.rb
+
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/SignalException:
+  EnforcedStyle: only_raise
+
 Style/TrivialAccessors:
   AllowPredicates: true
-
-Style/FileName:
-  Exclude:
-    - Rakefile
-    - Gemfile

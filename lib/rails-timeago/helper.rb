@@ -40,15 +40,22 @@ module Rails
       #
       # All other options will be given as options to tag helper.
       #
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/PerceivedComplexity
       def timeago_tag(time, html_options = {})
         time_options = Rails::Timeago.default_options
 
-        time_options = time_options.merge html_options.extract!(*time_options.keys.select {|k| html_options.include?(k) })
+        time_options = time_options.merge html_options.extract!(*time_options.keys.select do |k|
+                                                                  html_options.include?(k)
+                                                                end)
         return time_options[:default] if time.nil?
 
         time_options[:format] = time_options[:format].call(time, time_options) if time_options[:format].is_a?(Proc)
         if time_options[:title]
-          html_options[:title] = time_options[:title].is_a?(Proc) ? time_options[:title].call(time, time_options) : time_options[:title]
+          html_options[:title] =
+            time_options[:title].is_a?(Proc) ? time_options[:title].call(time, time_options) : time_options[:title]
         end
         time_options[:limit] = time_options[:limit].call if time_options[:limit].is_a?(Proc)
 
@@ -63,10 +70,16 @@ module Rails
         end
         time_tag time, timeago_tag_content(time, time_options), html_options
       end
+      # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize
 
       def timeago_tag_content(time, time_options = {}) # :nodoc:
-        time = time.to_date            if time_options[:date_only]
-        return time_ago_in_words(time) if time_options[:nojs] && (time_options[:limit].nil? || time_options[:limit] < time)
+        time = time.to_date if time_options[:date_only]
+        if time_options[:nojs] && (time_options[:limit].nil? || time_options[:limit] < time)
+          return time_ago_in_words(time)
+        end
 
         I18n.l time, format: time_options[:format]
       end

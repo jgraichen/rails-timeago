@@ -8,6 +8,9 @@ gemspec
 group :development do
   gem 'rake'
   gem 'rake-release'
+
+  gem 'rubocop', '~> 1.7'
+  gem 'rubocop-rspec', '~> 1.42'
 end
 
 group :test do
