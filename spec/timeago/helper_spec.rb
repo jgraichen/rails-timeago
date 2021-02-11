@@ -194,7 +194,7 @@ RSpec.describe Rails::Timeago::Helper do
       let(:kwargs) { {myattr: 'abc'} }
 
       it 'passes them to #tag_helper' do
-        is_expected.to match %r{<time.*myattr="abc".*>.*<\/time>}
+        is_expected.to match %r{<time.*myattr="abc".*>.*</time>}
       end
     end
   end

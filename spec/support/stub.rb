@@ -22,7 +22,7 @@ end
 class Application
   attr_accessor :render
 
-  ASSET_BASE = Pathname.new(File.expand_path('../../..', __FILE__))
+  ASSET_BASE = Pathname.new(File.expand_path('../..', __dir__))
   ASSET_DIRECTORIES = %w[lib/assets vendor/assets spec/support/assets].freeze
 
   def initialize

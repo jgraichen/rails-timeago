@@ -11,7 +11,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 3.14'
-  gem 'poltergeist', '~> 1.10'
+  gem 'capybara', '~> 3.35'
   gem 'rspec', '~> 3.5'
+  gem 'selenium-webdriver', '~> 3.142'
 end

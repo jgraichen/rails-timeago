@@ -5,13 +5,12 @@ require 'active_support/core_ext'
 
 require 'capybara'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 
-require File.dirname(__FILE__) + '/../lib/rails-timeago.rb'
-require File.dirname(__FILE__) + '/support/stub.rb'
+require 'rails-timeago'
+require_relative 'support/stub'
 
 Capybara.app = Application.instance
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.server = :webrick
 
 RSpec.configure do |config|
