@@ -11,9 +11,12 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/jgraichen/rails-timeago'
   gem.license       = 'MIT'
 
-  gem.executables   = `git ls-files -- bin/*`.split("\n").map {|f| File.basename(f) }
-  gem.files         = `git ls-files`.split("\n").reject {|file| file =~ /^scripts/ }
-  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  gem.files        = Dir.chdir(File.expand_path('..', __FILE__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(features|scripts|spec|test)/}) }
+  end
+  gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.name          = 'rails-timeago'
   gem.require_paths = ['lib']
   gem.version       = Rails::Timeago::VERSION
