@@ -8,7 +8,7 @@
 
 ## Installation
 
-Add this line to your application's `Gemfile`:
+Add this line to your `Gemfile`:
 
 ```ruby
 gem 'rails-timeago', '~> 2.0'
@@ -21,6 +21,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install rails-timeago
+
+### Use bundled JavaScript with Sprockets
+
+*Note:* The bundled JavaScript can only be used with sprockets. Rails-webpacker cannot load scripts bundled with the gem. If you use rails-webpacker you need to install, load, and setup jquery-timeago on your own.
 
 To use bundled jQuery Timeago plugin add this require statement to your `application.js` file:
 
