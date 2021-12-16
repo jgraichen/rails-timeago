@@ -32,7 +32,7 @@ class Application
   def call(env)
     @request = ::Rack::Request.new(env)
 
-    if @request.path =~ %r{^/assets/}
+    if %r{^/assets/}.match?(@request.path)
       call_asset
     else
       [200, {'Content-Type' => 'text/html'}, [call_render]]

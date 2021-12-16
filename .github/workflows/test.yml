@@ -15,16 +15,17 @@ jobs:
           - "2.6"
           - "2.5"
 
+    env:
+      BUNDLE_WITHOUT: development
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+
     steps:
       - uses: actions/checkout@master
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-        env:
-          BUNDLE_WITHOUT: development
-          BUNDLE_JOBS: 4
-          BUNDLE_RETRY: 3
 
       - run: bundle exec rspec --color
 
@@ -32,15 +33,16 @@ jobs:
     name: rubocop
     runs-on: ubuntu-20.04
 
+    env:
+      BUNDLE_WITHOUT: development
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+
     steps:
       - uses: actions/checkout@master
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0
           bundler-cache: true
-        env:
-          BUNDLE_WITHOUT: development
-          BUNDLE_JOBS: 4
-          BUNDLE_RETRY: 3
 
       - run: bundle exec rubocop --parallel --fail-level E

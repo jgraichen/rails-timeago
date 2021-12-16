@@ -40,10 +40,6 @@ module Rails
       #
       # All other options will be given as options to tag helper.
       #
-      # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/CyclomaticComplexity
-      # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Metrics/PerceivedComplexity
       def timeago_tag(time, html_options = {})
         time_options = Rails::Timeago.default_options
 
@@ -70,10 +66,6 @@ module Rails
         end
         time_tag time, timeago_tag_content(time, time_options), html_options
       end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity
-      # rubocop:enable Metrics/AbcSize
 
       def timeago_tag_content(time, time_options = {}) # :nodoc:
         time = time.to_date if time_options[:date_only]

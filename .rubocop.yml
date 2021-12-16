@@ -1,55 +1,8 @@
+inherit_from: .rubocop_todo.yml
+
+inherit_gem:
+  my-rubocop: default.yml
+
 AllCops:
-  Include:
-    - '**/*.rb'
-  NewCops: enable
-  SuggestExtensions: false
-  TargetRubyVersion: 2.4
-
-Layout/CaseIndentation:
-  EnforcedStyle: end
-  IndentOneStep: true
-  SupportedStyles:
-    - case
-    - end
-
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_fixed_indentation
-
-Layout/SpaceInsideBlockBraces:
-  EnforcedStyle: space
-  EnforcedStyleForEmptyBraces: no_space
-  SpaceBeforeBlockParameters: false
-
-Layout/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
-
-Metrics/BlockLength:
-  Exclude:
-    - Rakefile
-    - spec/**/*_spec.rb
-
-Metrics/LineLength:
-  Exclude:
-    - spec/**/*_spec.rb
-
-
-Naming/FileName:
-  Exclude:
-    - lib/rails-timeago.rb
-
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
-
-Style/RaiseArgs:
-  EnforcedStyle: compact
-
-Style/SignalException:
-  EnforcedStyle: only_raise
-
-Style/TrivialAccessors:
-  AllowPredicates: true
+  TargetRubyVersion: 2.5
+  SuggestExtensions: False

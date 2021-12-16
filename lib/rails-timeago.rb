@@ -72,7 +72,7 @@ module Rails
         limit: proc { 4.days.ago },
         date_only: true,
         default: '-',
-        title: proc {|time, options| I18n.l time, format: options[:format] }
+        title: proc {|time, options| I18n.l time, format: options[:format] },
       }
     end
   end

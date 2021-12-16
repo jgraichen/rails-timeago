@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe 'rails-timeago', type: :feature, js: true do
+  subject { find 'body > time' }
+
   let(:time) { 2.days.ago }
 
   before do
@@ -13,7 +15,6 @@ RSpec.describe 'rails-timeago', type: :feature, js: true do
   end
 
   before { visit '/' }
-  subject { find 'body > time' }
 
   describe 'renders simple timeago tag' do
     let(:render) do
