@@ -1,6 +1,19 @@
 # Changelog
 
+
 ## Unreleased
+---
+
+### New
+
+### Changes
+
+### Fixes
+
+### Breaks
+
+
+## 2.20.0 - (2022-03-04)
 
 ### New
 * Support for javascript tags nonce parameter

@@ -4,8 +4,8 @@ module Rails
   module Timeago
     module VERSION
       MAJOR = 2
-      MINOR = 19
-      PATCH = 1
+      MINOR = 20
+      PATCH = 0
       STAGE = nil
       STRING = [MAJOR, MINOR, PATCH, STAGE].compact.join('.').freeze
 
