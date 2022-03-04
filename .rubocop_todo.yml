@@ -14,19 +14,6 @@ RSpec/FilePath:
   Exclude:
     - 'spec/timeago/helper_spec.rb'
 
-# Offense count: 2
-# Configuration parameters: AssignmentOnly.
-RSpec/InstanceVariable:
-  Exclude:
-    - 'spec/timeago/helper_spec.rb'
-
-# Offense count: 18
-# Configuration parameters: IgnoreSharedExamples.
-RSpec/NamedSubject:
-  Exclude:
-    - 'spec/timeago/helper_spec.rb'
-    - 'spec/timeago_spec.rb'
-
 # Offense count: 22
 RSpec/NestedGroups:
   Max: 7

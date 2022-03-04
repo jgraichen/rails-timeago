@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe 'rails-timeago', type: :feature, js: true do
-  subject { find 'body > time' }
+  subject(:element) { find 'body > time' }
 
   let(:time) { 2.days.ago }
 
@@ -22,9 +22,9 @@ RSpec.describe 'rails-timeago', type: :feature, js: true do
     end
 
     it { is_expected.to have_content '2 days ago' }
-    it { expect(subject[:lang]).to eq '' }
-    it { expect(subject[:title]).to eq I18n.l(time) }
-    it { expect(subject[:datetime]).to eq time.iso8601 }
+    it { expect(element[:lang]).to eq '' }
+    it { expect(element[:title]).to eq I18n.l(time) }
+    it { expect(element[:datetime]).to eq time.iso8601 }
   end
 
   describe 'renders timeago tag with language' do
@@ -33,8 +33,8 @@ RSpec.describe 'rails-timeago', type: :feature, js: true do
     end
 
     it { is_expected.to have_content 'vor 2 Tagen' }
-    it { expect(subject[:lang]).to eq 'de' }
-    it { expect(subject[:title]).to eq I18n.l(time) }
+    it { expect(element[:lang]).to eq 'de' }
+    it { expect(element[:title]).to eq I18n.l(time) }
   end
 
   describe 'renders timeago tag with format' do
@@ -42,6 +42,6 @@ RSpec.describe 'rails-timeago', type: :feature, js: true do
       ->(h) { h.timeago_tag(time, format: :short) }
     end
 
-    it { expect(subject[:title]).to eq I18n.l(time, format: :short) }
+    it { expect(element[:title]).to eq I18n.l(time, format: :short) }
   end
 end

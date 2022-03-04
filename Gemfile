@@ -12,8 +12,8 @@ end
 
 group :test do
   gem 'capybara', '~> 3.35'
-  gem 'my-rubocop', github: 'jgraichen/my-rubocop', ref: 'v3'
   gem 'rspec', '~> 3.5'
+  gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: 'v7', require: false
   gem 'selenium-webdriver', '~> 3.142'
   gem 'webrick'
 end

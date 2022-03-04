@@ -3,36 +3,35 @@
 require 'spec_helper'
 
 RSpec.describe Rails::Timeago::Helper do
-  before { @stub = TimeagoStub.new }
-
+  let(:stub) { TimeagoStub.new }
   let(:time) { Time.now }
 
   describe '#timeago_tag' do
-    subject { @stub.timeago_tag(time, **kwargs) }
+    subject(:tag) { stub.timeago_tag(time, **kwargs) }
 
     let(:kwargs) { {} }
 
     it 'creates a time tag' do
-      expect(subject).to match %r{<time.*>.*</time>}
+      expect(tag).to match %r{<time.*>.*</time>}
     end
 
     it 'has a title attribute' do
-      expect(subject).to match %r{<time.*title=".*".*>.*</time>}
+      expect(tag).to match %r{<time.*title=".*".*>.*</time>}
     end
 
     it 'has a human readable datetime as title attribute' do
-      expect(subject).to include "title=\"#{I18n.l time}\""
+      expect(tag).to include "title=\"#{I18n.l time}\""
     end
 
     it 'has a data-time-ago attribute' do
-      expect(subject).to match %r{<time.*data-time-ago=".*".*>.*</time>}
+      expect(tag).to match %r{<time.*data-time-ago=".*".*>.*</time>}
     end
 
     context 'with nil as timestamp' do
       let(:time) { nil }
 
       it 'returns default string' do
-        expect(subject).to eq '-'
+        expect(tag).to eq '-'
       end
     end
 
@@ -118,7 +117,7 @@ RSpec.describe Rails::Timeago::Helper do
       let(:time) { 5.days.ago }
 
       it 'does not have data-time-ago attribute for times before limit' do
-        expect(subject).not_to match %r{<time.*data-time-ago=".*".*>.*</time>}
+        expect(tag).not_to match %r{<time.*data-time-ago=".*".*>.*</time>}
       end
 
       context 'with given limit' do
@@ -174,14 +173,14 @@ RSpec.describe Rails::Timeago::Helper do
       let(:time) { 3.days.ago }
 
       it 'has localized date as content' do
-        expect(subject).to include ">#{I18n.l time.to_date}<"
+        expect(tag).to include ">#{I18n.l time.to_date}<"
       end
 
       context 'with :format option' do
         let(:kwargs) { {format: :short} }
 
         it 'has correctly formatted date as content' do
-          expect(subject).to include ">#{I18n.l time.to_date, format: :short}<"
+          expect(tag).to include ">#{I18n.l time.to_date, format: :short}<"
         end
       end
 
@@ -189,7 +188,7 @@ RSpec.describe Rails::Timeago::Helper do
         let(:kwargs) { {date_only: false} }
 
         it 'has localized time as content' do
-          expect(subject).to include ">#{I18n.l time}<"
+          expect(tag).to include ">#{I18n.l time}<"
         end
       end
     end
@@ -199,7 +198,7 @@ RSpec.describe Rails::Timeago::Helper do
       let(:kwargs) { {nojs: true} }
 
       it 'has time in words as content' do
-        expect(subject).to match %r{<time.*>%time_ago_in_words%</time>}
+        expect(tag).to match %r{<time.*>%time_ago_in_words%</time>}
       end
 
       context 'with limit' do
@@ -214,17 +213,17 @@ RSpec.describe Rails::Timeago::Helper do
       let(:kwargs) { {myattr: 'abc'} }
 
       it 'passes them to #tag_helper' do
-        expect(subject).to match %r{<time.*myattr="abc".*>.*</time>}
+        expect(tag).to match %r{<time.*myattr="abc".*>.*</time>}
       end
     end
   end
 
   describe '#timeago_script_tag' do
-    subject { @stub.timeago_script_tag }
+    subject(:script_tag) { stub.timeago_script_tag }
 
     it 'returns a javascript snippet to set jQuery timeago locale' do
       I18n.locale = 'en'
-      expect(subject).to eq '<script>jQuery.timeago.settings.lang="en";</script>'
+      expect(script_tag).to eq '<script>jQuery.timeago.settings.lang="en";</script>'
     end
   end
 end

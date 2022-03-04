@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
 inherit_gem:
-  my-rubocop: default.yml
+  rubocop-config: default.yml
 
 AllCops:
   TargetRubyVersion: 2.5
