@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### New
+* Support for javascript tags nonce parameter
+
 ## 2.19.1
 
 * Maintenance release reducing gem archive size

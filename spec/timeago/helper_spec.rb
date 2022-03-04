@@ -219,11 +219,16 @@ RSpec.describe Rails::Timeago::Helper do
   end
 
   describe '#timeago_script_tag' do
-    subject(:script_tag) { stub.timeago_script_tag }
+    subject(:script_tag) { stub.timeago_script_tag(nonce: true) }
 
     it 'returns a javascript snippet to set jQuery timeago locale' do
       I18n.locale = 'en'
-      expect(script_tag).to eq '<script>jQuery.timeago.settings.lang="en";</script>'
+      expect(script_tag).to match %r{<script.*>jQuery.timeago.settings.lang="en";</script>}
+    end
+
+    it 'passes parameters to to #javascript_tag' do
+      I18n.locale = 'en'
+      expect(script_tag).to eq '<script nonce="true">jQuery.timeago.settings.lang="en";</script>'
     end
   end
 end

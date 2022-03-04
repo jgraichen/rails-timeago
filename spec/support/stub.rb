@@ -14,8 +14,11 @@ class TimeagoStub
     '%time_ago_in_words%'
   end
 
-  def javascript_tag(source)
-    "<script>#{source}</script>"
+  def javascript_tag(source, **kwargs)
+    attrs = kwargs.map {|k, v| "#{k}=#{v.to_s.inspect}" }
+    attrs = [*attrs].join(' ')
+    attrs = " #{attrs}" unless attrs.blank?
+    "<script#{attrs}>#{source}</script>"
   end
 end
 

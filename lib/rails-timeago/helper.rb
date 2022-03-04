@@ -77,8 +77,8 @@ module Rails
       end
 
       # Return a JavaScript tag to set jQuery timeago locale.
-      def timeago_script_tag
-        javascript_tag "jQuery.timeago.settings.lang=\"#{I18n.locale}\";" if I18n.locale != 'en'
+      def timeago_script_tag(**kwargs)
+        javascript_tag("jQuery.timeago.settings.lang=\"#{I18n.locale}\";", **kwargs) if I18n.locale != 'en'
       end
     end
   end

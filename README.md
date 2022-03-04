@@ -100,6 +100,8 @@ The following snippet will print a script tag that set the jQuery timeago locale
 <%= timeago_script_tag %>
 ```
 
+Arguments are passed to Rails' `javascript_tag` helper, e.g. to assign a CSP nonce: `timeago_script_tag(nonce: true)`.
+
 Just insert it in your application layout's html head. If you use another I18n framework for JavaScript you can also directly set `jQuery.timeago.settings.lang`. For example:
 
 ```js
