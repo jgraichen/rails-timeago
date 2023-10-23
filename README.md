@@ -1,7 +1,7 @@
 # rails-timeago
 
 [![Gem Version](https://img.shields.io/gem/v/rails-timeago?logo=ruby)](https://rubygems.org/gems/rails-timeago)
-[![Build Status](https://img.shields.io/github/workflow/status/jgraichen/rails-timeago/test?logo=github)](https://github.com/jgraichen/rails-timeago/actions?query=workflow%3Atest+branch%3Amaster)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/jgraichen/rails-timeago/test.yml?logo=github)](https://github.com/jgraichen/rails-timeago/actions/workflows/test.yml)
 
 **rails-timeago** provides a timeago_tag helper to create time tags usable for
 [jQuery Timeago](https://github.com/rmm5t/jquery-timeago) plugin.
