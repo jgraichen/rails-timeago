@@ -11,7 +11,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 3.39'
+  gem 'capybara'
   gem 'rackup'
   gem 'rspec', '~> 3.12'
   gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: 'v7', require: false
