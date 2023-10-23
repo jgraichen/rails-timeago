@@ -15,6 +15,6 @@ group :test do
   gem 'rackup'
   gem 'rspec', '~> 3.12'
   gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: 'v7', require: false
-  gem 'selenium-webdriver', '~> 4.14'
+  gem 'selenium-webdriver'
   gem 'webrick'
 end
