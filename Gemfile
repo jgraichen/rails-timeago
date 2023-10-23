@@ -11,9 +11,10 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 3.35'
-  gem 'rspec', '~> 3.5'
+  gem 'capybara', '~> 3.39'
+  gem 'rackup'
+  gem 'rspec', '~> 3.12'
   gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: 'v7', require: false
-  gem 'selenium-webdriver', '~> 3.142'
+  gem 'selenium-webdriver', '~> 4.14'
   gem 'webrick'
 end
