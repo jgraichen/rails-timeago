@@ -1,8 +1,17 @@
-inherit_from: .rubocop_todo.yml
-
 inherit_gem:
   rubocop-config: default.yml
 
 AllCops:
   TargetRubyVersion: 2.7
   SuggestExtensions: False
+
+Naming/FileName:
+  Exclude:
+    - lib/rails-timeago.rb
+
+RSpec/NestedGroups:
+  Enabled: False
+
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - spec/timeago/helper_spec.rb

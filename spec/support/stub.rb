@@ -67,7 +67,7 @@ class Application
   end
 
   def call_asset
-    if (file = find_asset(@request.path[8..-1]))
+    if (file = find_asset(@request.path[8..]))
       [200, {'Content-Type' => 'text/javascript'}, [file.read]]
     else
       [404, {}, []]

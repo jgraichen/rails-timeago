@@ -52,8 +52,9 @@ module Rails
     def self.default_options(opts = nil)
       @defaults ||= option_hash
       if opts
-        @defaults.merge! \
-          opts.extract!(*@defaults.keys.select {|k| opts.include?(k) })
+        @defaults.merge!(
+          opts.extract!(*@defaults.keys.select {|k| opts.include?(k) }),
+        )
       else
         @defaults
       end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'rails-timeago', js: true, type: :feature do
+RSpec.describe 'rails-timeago', :js, type: :feature do
   subject(:element) { find 'body > time' }
 
   let(:time) { 2.days.ago }
