@@ -14,7 +14,7 @@ group :test do
   gem 'capybara'
   gem 'rackup'
   gem 'rspec', '~> 3.12'
-  gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: 'e552f8f026fdffdb22f28f421306e5169f711461', require: false
+  gem 'rubocop-config', github: 'jgraichen/rubocop-config', ref: '8f881197f81740731a3a1f12f8b521a63d80914f', require: false
   gem 'selenium-webdriver'
   gem 'webrick'
 end
